@@ -1,0 +1,327 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "User API",
+        "description": "User Management API",
+        "contact": {
+            "name": "Jayanta Das",
+            "url": "https://www.linkedin.com/in/jayanta-das-88771b17a/",
+            "email": "jayantadas.dev@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8000",
+            "description": "API Server"
+        }
+    ],
+    "paths": {
+        "/api/nsap-schemes": {
+            "get": {
+                "tags": [
+                    "NSAP Schemes"
+                ],
+                "summary": "Get list of NSAP schemes",
+                "description": "Returns list of NSAP schemes",
+                "operationId": "getNsapSchemesList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/NsapScheme"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/api/nsap-schemes/{id}": {
+            "get": {
+                "tags": [
+                    "NSAP Schemes"
+                ],
+                "summary": "Get specific NSAP scheme by ID",
+                "description": "Returns a single NSAP scheme by ID",
+                "operationId": "getNsapSchemeById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "NSAP Scheme ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NsapScheme"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Scheme not found"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/api/nsap-schemes/code/{scheme_code}": {
+            "get": {
+                "tags": [
+                    "NSAP Schemes"
+                ],
+                "summary": "Get NSAP schemes by Scheme Code",
+                "description": "Returns all NSAP schemes by Scheme Code",
+                "operationId": "getNsapSchemesByCode",
+                "parameters": [
+                    {
+                        "name": "scheme_code",
+                        "in": "path",
+                        "description": "NSAP Scheme Code",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/NsapScheme"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Schemes not found"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get list of users with roles and permissions",
+                "description": "Returns list of users",
+                "operationId": "getUsersList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/User"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/api/users/{id}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get user information",
+                "description": "Returns user data",
+                "operationId": "getUserById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User not found"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "NsapScheme": {
+                "title": "NsapScheme",
+                "description": "NSAP Scheme Model",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "scheme_code": {
+                        "type": "string",
+                        "example": "NSAP001"
+                    },
+                    "scheme_name": {
+                        "type": "string",
+                        "example": "Scheme A"
+                    },
+                    "central_state_scheme": {
+                        "type": "string",
+                        "example": "Central"
+                    },
+                    "fin_year": {
+                        "type": "string",
+                        "example": "2023-2024"
+                    },
+                    "state_disbursement": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 10000
+                    },
+                    "central_disbursement": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 20000
+                    },
+                    "total_disbursement": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 30000
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "User": {
+                "title": "User",
+                "required": [
+                    "id",
+                    "name",
+                    "email"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "User ID",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "description": "User Name",
+                        "type": "string"
+                    },
+                    "email": {
+                        "description": "User Email",
+                        "type": "string"
+                    },
+                    "roles": {
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "id": {
+                                    "type": "integer"
+                                },
+                                "name": {
+                                    "type": "string"
+                                },
+                                "guard_name": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "permissions": {
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "id": {
+                                    "type": "integer"
+                                },
+                                "name": {
+                                    "type": "string"
+                                },
+                                "guard_name": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}

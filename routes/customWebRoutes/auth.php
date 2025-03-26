@@ -1,0 +1,63 @@
+<?php
+
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\registerController;
+use App\Http\Controllers\Lab\LabController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Patients\PatientController;
+use App\Http\Controllers\UserManagement\UserManagementController;
+
+Route::get('/patientMakeAppointment', [PatientController::class, 'patientMakeAppointment'])
+    ->name('patientMakeAppointment');
+Route::get('/createAppointments', [PatientController::class, 'createAppointments'])
+    ->name('createAppointments');
+Route::post('/storeAppointments', [PatientController::class, 'storeAppointments'])
+    ->name('storeAppointments');
+Route::get('editAppointments/{id}', [PatientController::class, 'editAppointments'])->name('editAppointments');
+
+Route::post('/deleteAppointments', [PatientController::class, 'deleteAppointments'])
+    ->name('deleteAppointments');
+Route::get('/home', [PatientController::class, 'home'])
+    ->name('home');
+Route::get('/aboutUs', [PatientController::class, 'aboutUs'])
+    ->name('aboutUs');
+
+    Route::get('/LabView', [LabController::class, 'LabView'])
+    ->name('LabView');
+    Route::get('/labCreate', [LabController::class, 'labCreate'])
+    ->name('labCreate');
+
+    Route::post('/labStore', [LabController::class, 'labStore'])
+    ->name('labStore');
+    Route::get('labsEdit/{id}', [LabController::class, 'labsEdit'])->name('labsEdit');
+    Route::post('/labsDelete', [LabController::class, 'labsDelete'])
+    ->name('labsDelete');
+
+    Route::get('/userView', [UserManagementController::class, 'userView'])
+    ->name('userView');
+    Route::get('/userCreate', [UserManagementController::class, 'userCreate'])
+    ->name('userCreate');
+
+    Route::post('/userStore', [UserManagementController::class, 'userStore'])
+    ->name('userStore');
+    Route::get('userEdit/{id}', [UserManagementController::class, 'userEdit'])->name('userEdit');
+    Route::post('/userDelete', [UserManagementController::class, 'userDelete'])
+    ->name('userDelete');
+
+
+
+
+
+
+
+Route::prefix('auth')->middleware('guest')->name('auth.')->group(function () {
+    Route::controller(LoginController::class)->group(function () {
+        Route::get('/login', 'index')->name('login');
+        Route::post('/login', 'authenticate')->name('login.submit');
+    });
+
+    Route::controller(registerController::class)->group(function () {
+        Route::get('/register', 'index')->name('register');
+        Route::post('/register', 'create')->name('register.submit');
+    });
+});
