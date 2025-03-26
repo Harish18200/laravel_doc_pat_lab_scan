@@ -24,7 +24,7 @@ class UserManagementController extends Controller
     {
         try {
             $model = UserManagement::updateOrCreate(
-                ['id' => $request->id],  
+                ['id' => $request->id],
                 [
                     'name' => $request->name,
                     'email' => $request->email,
@@ -34,15 +34,14 @@ class UserManagementController extends Controller
                     'dob' => $request->dob,
                 ]
             );
-    
+
             if ($model->wasRecentlyCreated) {
                 Log::info('User created successfully', ['user' => $model]);
             } else {
                 Log::info('User updated successfully', ['user' => $model]);
             }
-    
+
             return redirect()->route('userView')->with('success', 'User saved successfully.');
-    
         } catch (\Exception $e) {
             Log::error('Error saving user', ['error' => $e->getMessage()]);
             return redirect()->back()->withErrors(['error' => 'An error occurred while saving the user.']);
@@ -56,9 +55,13 @@ class UserManagementController extends Controller
     }
 
 
-    public function destroy($id)
+    public function userDelete(Request $request)
     {
-        UserManagement::findOrFail($id)->delete();
-        return redirect()->route('user_management.index')->with('success', 'User deleted successfully.');
+        $users =  UserManagement::find($request->user_id);
+        if ($users) {
+            $users->delete();
+            return redirect()->route('userView')->with('success', 'User deleted successfully.');
+        }
+        return redirect()->route('userView')->with('error', 'Appointment not found!');
     }
 }

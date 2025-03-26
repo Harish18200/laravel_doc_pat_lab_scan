@@ -5,6 +5,8 @@ use App\Http\Controllers\Auth\registerController;
 use App\Http\Controllers\Lab\LabController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Patients\PatientController;
+use App\Http\Controllers\Pharma\PharmaController;
+use App\Http\Controllers\ScanInvoice\ScanInvoiceController;
 use App\Http\Controllers\UserManagement\UserManagementController;
 
 Route::get('/patientMakeAppointment', [PatientController::class, 'patientMakeAppointment'])
@@ -22,29 +24,53 @@ Route::get('/home', [PatientController::class, 'home'])
 Route::get('/aboutUs', [PatientController::class, 'aboutUs'])
     ->name('aboutUs');
 
-    Route::get('/LabView', [LabController::class, 'LabView'])
+Route::get('/LabView', [LabController::class, 'LabView'])
     ->name('LabView');
-    Route::get('/labCreate', [LabController::class, 'labCreate'])
+Route::get('/labCreate', [LabController::class, 'labCreate'])
     ->name('labCreate');
 
-    Route::post('/labStore', [LabController::class, 'labStore'])
+Route::post('/labStore', [LabController::class, 'labStore'])
     ->name('labStore');
-    Route::get('labsEdit/{id}', [LabController::class, 'labsEdit'])->name('labsEdit');
-    Route::post('/labsDelete', [LabController::class, 'labsDelete'])
+Route::get('labsEdit/{id}', [LabController::class, 'labsEdit'])->name('labsEdit');
+Route::post('/labsDelete', [LabController::class, 'labsDelete'])
     ->name('labsDelete');
 
-    Route::get('/userView', [UserManagementController::class, 'userView'])
+Route::get('/userView', [UserManagementController::class, 'userView'])
     ->name('userView');
-    Route::get('/userCreate', [UserManagementController::class, 'userCreate'])
+Route::get('/userCreate', [UserManagementController::class, 'userCreate'])
     ->name('userCreate');
 
-    Route::post('/userStore', [UserManagementController::class, 'userStore'])
+Route::post('/userStore', [UserManagementController::class, 'userStore'])
     ->name('userStore');
-    Route::get('userEdit/{id}', [UserManagementController::class, 'userEdit'])->name('userEdit');
-    Route::post('/userDelete', [UserManagementController::class, 'userDelete'])
+Route::get('userEdit/{id}', [UserManagementController::class, 'userEdit'])->name('userEdit');
+Route::post('/userDelete', [UserManagementController::class, 'userDelete'])
     ->name('userDelete');
 
 
+
+
+Route::get('/pharmaView', [PharmaController::class, 'pharmaView'])
+    ->name('pharmaView');
+Route::get('/pharmaCreate', [PharmaController::class, 'pharmaCreate'])
+    ->name('pharmaCreate');
+
+Route::post('/pharmaStore', [PharmaController::class, 'pharmaStore'])
+    ->name('pharmaStore');
+Route::get('pharmaEdit/{id}', [PharmaController::class, 'pharmaEdit'])->name('pharmaEdit');
+Route::post('/pharmaDelete', [PharmaController::class, 'pharmaDelete'])
+    ->name('pharmaDelete');
+
+
+Route::get('/scanInvoiceView', [ScanInvoiceController::class, 'scanInvoiceView'])
+    ->name('scanInvoiceView');
+Route::get('/scanInvoiceCreate', [ScanInvoiceController::class, 'scanInvoiceCreate'])
+    ->name('scanInvoiceCreate');
+
+Route::post('scanInvoiceStore', [ScanInvoiceController::class, 'scanInvoiceStore'])
+    ->name('scanInvoiceStore');
+Route::get('scanInvoiceEdit/{id}', [ScanInvoiceController::class, 'scanInvoiceEdit'])->name('scanInvoiceEdit');
+Route::post('scanInvoiceDelete', [ScanInvoiceController::class, 'scanInvoiceDelete'])
+    ->name('scanInvoiceDelete');
 
 
 

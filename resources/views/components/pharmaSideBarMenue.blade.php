@@ -12,22 +12,27 @@
         <ul class="nav flex-column">
 
 
-
             <!-- User Management -->
             <li class="nav-item">
                 <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="collapse"
                     aria-expanded="false">
-                    <i class="fa-solid fa-users"></i>&nbsp;&nbsp;Scan Management
+                    <i class="fa-solid fa-users"></i>&nbsp;&nbsp;Pharma Management
                 </a>
 
             </li>
+
+
+
+
+
+
+
             <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() === 'dashboard.import.nsapScheme.show' ? 'fw-bold text-white' : '' }}" href="{{route('scanInvoiceView')}}">Scan Invoice</a>
+                <a class="nav-link {{ Route::currentRouteName() === 'dashboard.import.users.show' ? 'fw-bold text-white' : '' }}" href="{{route('pharmaView')}}">Pharma</a>
             </li>
-
-
-
-
+            <li class="nav-item">
+                <a class="nav-link {{ Route::currentRouteName() === 'dashboard.import.nsapScheme.show' ? 'fw-bold text-white' : '' }}" href="{{route('userView')}}">User Management</a>
+            </li>
         </ul>
     </nav>
 
