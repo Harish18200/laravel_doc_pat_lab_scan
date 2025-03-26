@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\registerController;
+use App\Http\Controllers\Doctor\DoctorController;
+use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\Lab\LabController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Patients\PatientController;
@@ -71,6 +73,22 @@ Route::post('scanInvoiceStore', [ScanInvoiceController::class, 'scanInvoiceStore
 Route::get('scanInvoiceEdit/{id}', [ScanInvoiceController::class, 'scanInvoiceEdit'])->name('scanInvoiceEdit');
 Route::post('scanInvoiceDelete', [ScanInvoiceController::class, 'scanInvoiceDelete'])
     ->name('scanInvoiceDelete');
+Route::get('PatientList', [DoctorController::class, 'PatientList'])->name('PatientList');
+Route::get('viewAppointment', [DoctorController::class, 'viewAppointment'])->name('viewAppointment');
+
+
+Route::get('/expensesView', [ExpenseController::class, 'expensesView'])
+    ->name('expensesView');
+Route::get('/expensesCreate', [ExpenseController::class, 'expensesCreate'])
+    ->name('expensesCreate');
+
+Route::post('expensesStore', [ExpenseController::class, 'expensesStore'])
+    ->name('expensesStore');
+Route::get('expensesEdit/{id}', [ExpenseController::class, 'expensesEdit'])->name('expensesEdit');
+Route::post('expensesDelete', [ExpenseController::class, 'expensesDelete'])
+    ->name('expensesDelete');
+
+
 
 
 

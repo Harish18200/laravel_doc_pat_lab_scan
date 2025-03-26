@@ -45,8 +45,9 @@
                     </button>
                 </div>
             </form>
+            <a href="" id="link">Not Register Yet?</a>
 
-            <a href="{{route('auth.register')}}" id="link">Not Register Yet?</a>
+            <!-- <a href="{{route('auth.register')}}" id="link">Not Register Yet?</a> -->
         </div>
     </div>
 </div>
