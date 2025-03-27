@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('labs', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('mobile');
+            $table->string('name')->nullable();
+            $table->string('email')->nullable();
+            $table->string('mobile')->nullable();
             $table->enum('gender', ['male', 'female', 'other']);
-            $table->string('address');
-            $table->date('dob');
-            $table->string('password');
+            $table->string('address')->nullable();
+            $table->date('dob')->nullable();
+            $table->string('password')->nullable();
             $table->timestamps();
         });
     }

@@ -21,16 +21,24 @@
             <input type="text" name="mobile" class="form-control" value="{{ $user->mobile }}">
         </div>
         <div class="form-group">
+            <label>Department</label>
+            <input type="text" name="department" class="form-control" value="{{ $user->department }}">
+        </div>
+        <div class="form-group">
+            <label>Gender</label>
+            <input type="text" name="gender" class="form-control" value="{{ $user->gender }}">
+        </div>
+        <div class="form-group">
             <label>Address</label>
-            <input type="text" name="address" class="form-control" value="{{ $user->address }}">
+            <input type="text" name="address" class="form-control" value="">
         </div>
         <div class="form-group">
             <label>Age</label>
-            <input type="number" name="age" class="form-control" value="{{ $user->age }}">
+            <input type="number" name="age" class="form-control" value="">
         </div>
         <div class="form-group">
             <label>DOB</label>
-            <input type="date" name="dob" class="form-control" value="{{ $user->dob }}">
+            <input type="date" name="dob" class="form-control" value="">
         </div>
         <button type="submit" class="btn btn-primary mt-2">Update</button>
     </form>

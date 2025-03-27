@@ -18,6 +18,14 @@
             <input type="text" name="mobile" class="form-control">
         </div>
         <div class="form-group">
+            <label>Department</label>
+            <input type="text" name="department" class="form-control" value="">
+        </div>
+        <div class="form-group">
+            <label>Gender</label>
+            <input type="text" name="gender" class="form-control" value="">
+        </div>
+        <div class="form-group">
             <label>Address</label>
             <input type="text" name="address" class="form-control">
         </div>

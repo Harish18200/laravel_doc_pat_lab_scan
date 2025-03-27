@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('scan_invoices', function (Blueprint $table) {
             $table->id();
             $table->string('invoice_number')->unique();
-            $table->date('invoice_date');
-            $table->decimal('amount', 10, 2);
-            $table->string('customer_name');
+            $table->date('invoice_date')->nullable();
+            $table->decimal('amount', 10, 2)->nullable();
+            $table->string('customer_name')->nullable();
             $table->timestamps();
         });
     }

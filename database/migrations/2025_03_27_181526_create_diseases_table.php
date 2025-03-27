@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_management', function (Blueprint $table) {
+        Schema::create('diseases', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
-            $table->string('email')->nullable();
-            $table->string('mobile')->nullable();
-            $table->string('address')->nullable();
-            $table->integer('age')->nullable();
-            $table->date('dob')->nullable();
+            $table->string('diseases')->unique();
+            $table->text('symptoms')->nullable();
+            $table->text('treatment')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_management');
+        Schema::dropIfExists('diseases');
     }
 };

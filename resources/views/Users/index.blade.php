@@ -19,9 +19,8 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Mobile</th>
-                <th>Address</th>
-                <th>Age</th>
-                <th>DOB</th>
+                <th>Gender</th>
+                <th>Department</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -31,9 +30,9 @@
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->mobile }}</td>
-                <td>{{ $user->address }}</td>
-                <td>{{ $user->age }}</td>
-                <td>{{ $user->dob }}</td>
+                <td>{{ $user->gender }}</td>
+                <td>{{ $user->department }}</td>
+
                 <td>
                     <a href="{{ route('userEdit', $user->id ) }}" class="btn btn-warning">Edit</a>
                     <form action="{{ route('userDelete') }}" method="POST" class="d-inline">

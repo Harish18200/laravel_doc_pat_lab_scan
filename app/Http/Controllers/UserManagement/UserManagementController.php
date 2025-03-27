@@ -30,6 +30,8 @@ class UserManagementController extends Controller
                     'email' => $request->email,
                     'mobile' => $request->mobile,
                     'address' => $request->address,
+                    'department' => $request->department,
+                    'gender' => $request->gender,
                     'age' => $request->age,
                     'dob' => $request->dob,
                 ]

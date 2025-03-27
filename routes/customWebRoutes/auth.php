@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\registerController;
 use App\Http\Controllers\Doctor\DoctorController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\Lab\LabController;
+use App\Http\Controllers\Patient\DiseaseController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Patients\PatientController;
 use App\Http\Controllers\Pharma\PharmaController;
@@ -74,7 +75,18 @@ Route::get('scanInvoiceEdit/{id}', [ScanInvoiceController::class, 'scanInvoiceEd
 Route::post('scanInvoiceDelete', [ScanInvoiceController::class, 'scanInvoiceDelete'])
     ->name('scanInvoiceDelete');
 Route::get('PatientList', [DoctorController::class, 'PatientList'])->name('PatientList');
+Route::get('patientsCreate', [DoctorController::class, 'patientsCreate'])->name('patientsCreate');
+Route::post('patientStore', [DoctorController::class, 'patientStore'])->name('patientStore');
+Route::get('/patients/{id}/edit', [DoctorController::class, 'edit'])->name('patients.edit');
+Route::delete('/patients/{id}', [DoctorController::class, 'destroy'])->name('patients.destroy');
+
+
+Route::get('/appointment/{id}/approval', [DoctorController::class, 'approvalAppointment'])->name('appointment.approval');
+
+
 Route::get('viewAppointment', [DoctorController::class, 'viewAppointment'])->name('viewAppointment');
+Route::get('diseasesView', [DiseaseController::class, 'diseasesView'])->name('diseasesView');
+Route::get('promptSearch', [DiseaseController::class, 'promptSearch'])->name('promptSearch');
 
 
 Route::get('/expensesView', [ExpenseController::class, 'expensesView'])
@@ -92,6 +104,7 @@ Route::post('expensesDelete', [ExpenseController::class, 'expensesDelete'])
 
 
 
+Route::get('/search-diseases', [DiseaseController::class, 'searchDiseases'])->name('search.diseases');
 
 
 Route::prefix('auth')->middleware('guest')->name('auth.')->group(function () {

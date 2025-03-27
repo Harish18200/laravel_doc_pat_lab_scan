@@ -7,9 +7,12 @@
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
+
+    <a href="{{ route('patientsCreate') }}" class="btn btn-primary mb-3">Add Patient</a>
+
     <input type="text" id="searchPatient" class="form-control mb-2" placeholder="Search Patient Name...">
 
-<table class="table table-bordered">
+    <table class="table table-bordered">
     <thead class="table-dark">
         <tr>
             <th>ID</th>
@@ -18,6 +21,7 @@
             <th>Phone</th>
             <th>Age</th>
             <th>Gender</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody id="patientTable">
@@ -26,9 +30,17 @@
             <td>{{ $patient->id }}</td>
             <td class="patient-name">{{ $patient->name }}</td>
             <td>{{ $patient->email }}</td>
-            <td>{{ $patient->phone }}</td>
+            <td>{{ $patient->mobile }}</td>
             <td>{{ $patient->age }}</td>
             <td>{{ $patient->gender }}</td>
+            <td>
+                <a href="{{ route('patients.edit', $patient->id) }}" class="btn btn-primary btn-sm">Edit</a>
+                <form action="{{ route('patients.destroy', $patient->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure?');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </td>
         </tr>
         @empty
         <tr>
@@ -37,7 +49,9 @@
         @endforelse
     </tbody>
 </table>
+
 </div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
