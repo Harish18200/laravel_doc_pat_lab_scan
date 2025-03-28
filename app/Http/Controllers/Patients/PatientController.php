@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Patients;
 
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
+use App\Models\Doctor;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -19,26 +20,27 @@ class PatientController extends Controller
     public function editAppointments($id)
     {
         $appointments = Appointment::findOrFail($id);
-        return view('Patients.edit', compact('appointments'));
+        $doctors = Doctor::get();
+        return view('Patients.edit', compact('appointments', 'doctors'));
     }
 
 
     public function  createAppointments()
     {
-
-        return view('Patients.create');
+        $doctors = Doctor::get();
+        return view('Patients.create', compact('doctors'));
     }
     public function  storeAppointments(Request $request)
     {
 
         Appointment::create([
-            'patientName' => $request->patientName,
-            'patient_id' => $request->patientId,
-            'doctor_id' => $request->doctor_id,
+            'patientName' => $request->patientName ?? null,
+            'patient_id' => $request->patientId ?? null,
+            'doctor_id' => $request->doctor_id ?? null,
             'problem' => $request->problem ?? null,
             'appointment_date' => Carbon::parse($request->appointment_date)->format('Y-m-d'),
             'appointment_time' => Carbon::parse($request->appointment_time)->format('H:i:s'),
-            'status' => $request->status ?? null,
+            'appointment_status' => $request->status ?? null,
         ]);
 
         return redirect()->route('patientMakeAppointment')->with('success', 'Appointment added successfully!');

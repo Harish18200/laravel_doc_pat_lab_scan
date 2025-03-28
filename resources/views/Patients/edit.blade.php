@@ -16,11 +16,17 @@
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Doctor</label>
-            <select name="doctor_id" class="form-control" readonly>
-
-            </select>
-        </div>
+                <label class="form-label">Doctor</label>
+                <select name="doctor_id" class="form-control">
+                    <option value="">Select Doctor</option>
+                    @foreach($doctors as $doctor)
+                    <option value="{{ $doctor->id }}"
+                        {{ old('doctor_id') == $doctor->id ? 'selected' : '' }}>
+                        Dr. {{ $doctor->name }}
+                    </option>
+                    @endforeach
+                </select>
+            </div>
 
         <div class="mb-3">
             <label class="form-label">Problem</label>
@@ -37,15 +43,7 @@
             <input type="time" name="appointment_time" class="form-control" value="{{ $appointments->appointment_time }}" readonly>
         </div>
 
-        <div class="mb-3">
-            <label class="form-label">Status</label>
-            <select name="status" class="form-control" disabled>
-                <option value="pending" {{ $appointments->status == 'pending' ? 'selected' : '' }}>Pending</option>
-                <option value="confirmed" {{ $appointments->status == 'confirmed' ? 'selected' : '' }}>Confirmed</option>
-                <option value="completed" {{ $appointments->status == 'completed' ? 'selected' : '' }}>Completed</option>
-                <option value="cancelled" {{ $appointments->status == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
-            </select>
-        </div>
+        
         <a href="{{ route('patientMakeAppointment') }}" class="btn btn-primary ">Back</a>
 
     </div>

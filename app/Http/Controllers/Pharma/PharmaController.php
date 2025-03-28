@@ -22,20 +22,15 @@ class PharmaController extends Controller
 
     public function pharmaStore(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'category' => 'required',
-            'price' => 'required|numeric',
-            'stock' => 'required|integer'
-        ]);
+
         if (isset($request->pharma_id)) {
             $pharma = PharmaApplication::find($request->id);
             if ($pharma) {
-                $pharma->update($validatedData);
+                $pharma->update($request);
                 return redirect()->route('pharmaView')->with('success', 'Pharma product updated successfully');
             }
         }
-        PharmaApplication::create($validatedData);
+        PharmaApplication::create($request);
 
         return redirect()->route('pharmaView')->with('success', 'Pharma product added successfully');
     }

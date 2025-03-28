@@ -27,7 +27,7 @@
                     <td>{{ $appointment->problem ?? 'N/A' }}</td>
                     <td>{{ $appointment->appointment_date }}</td>
                     <td>{{ $appointment->appointment_time }}</td>
-                    <td>{{ ucfirst($appointment->status) }}</td>
+                    <td>{{ ucfirst($appointment->appointment_status) }}</td>
                     <td>
 
                         <a href="{{ route('editAppointments', $appointment->id) }}" class="btn btn-warning btn-sm">View</a>

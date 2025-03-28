@@ -9,5 +9,14 @@ class PharmaApplication extends Model
 {
     use HasFactory;
     protected $table = 'pharma_applications';
-    protected $fillable = ['name', 'category', 'price', 'stock'];
+    protected $fillable = [
+        'medicine',
+        'batch_no',
+        'price',
+        'record_level',
+        'mfg_date',
+        'exp_date',
+        'quantity',
+        'potency'
+    ];
 }

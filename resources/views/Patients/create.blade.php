@@ -10,19 +10,22 @@
         <form action="{{ route('storeAppointments') }}" method="POST">
             @csrf
             <div class="mb-3">
-            <label class="form-label">Patient</label>
-            <input type="text" name="patientName"  value="{{ session('user_name') }}"  class="form-control" placeholder="Enter Patient Name" readonly>
-            <input type="text" hidden name="patientId"  value="{{ session('user_id') }}">
+                <label class="form-label">Patient</label>
+                <input type="text" name="patientName" value="{{ session('user_name') }}" class="form-control" placeholder="Enter Patient Name" readonly>
+                <input type="text" hidden name="patientId" value="{{ session('user_id') }}">
 
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Doctor</label>
-                <select name="doctor_id" class="form-control" >
+                <select name="doctor_id" class="form-control">
                     <option value="">Select Doctor</option>
-                   
-                    <option value="1" selected>Dr. Default Name</option> 
-                  
+                    @foreach($doctors as $doctor)
+                    <option value="{{ $doctor->id }}"
+                        {{ old('doctor_id') == $doctor->id ? 'selected' : '' }}>
+                        Dr. {{ $doctor->name }}
+                    </option>
+                    @endforeach
                 </select>
             </div>
 
