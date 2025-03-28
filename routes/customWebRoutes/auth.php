@@ -38,6 +38,8 @@ Route::get('labsEdit/{id}', [LabController::class, 'labsEdit'])->name('labsEdit'
 Route::post('/labsDelete', [LabController::class, 'labsDelete'])
     ->name('labsDelete');
 
+    Route::get('/get-lab-details', [LabController::class, 'getLabDetails'])->name('getLabDetails');
+
 Route::get('/userView', [UserManagementController::class, 'userView'])
     ->name('userView');
 Route::get('/userCreate', [UserManagementController::class, 'userCreate'])

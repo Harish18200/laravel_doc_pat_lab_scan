@@ -4,16 +4,19 @@ namespace App\Http\Controllers\Lab;
 
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
+use App\Models\LabDetails;
 use App\Models\LabApplication;
 use Illuminate\Http\Request;
+use App\Models\LabMaster;
 
 class LabController extends Controller
 {
     public function LabView()
     {
-        // $user_id = session('user_id');
-        $labs = LabApplication::get();
-        return view('lab.index', compact('labs'));
+
+        $labs = LabMaster::all();
+        $labDetails = LabDetails::all(); // Fetch all data initially
+        return view('lab.index', compact('labs', 'labDetails'));
     }
 
     public function labCreate()
@@ -41,7 +44,7 @@ class LabController extends Controller
             return redirect()->route('LabView')->with('success', 'Lab created successfully');
         }
     }
-    
+
 
 
     public function labsEdit($id)
@@ -65,13 +68,20 @@ class LabController extends Controller
 
     public function labsDelete(Request $request)
     {
-       
+
         $labAppointment = LabApplication::find($request->lab_id);
         if ($labAppointment) {
             $labAppointment->delete();
         }
 
-       
+
         return redirect()->route('LabView')->with('success', 'Lab deleted successfully');
+    }
+
+    public function getLabDetails(Request $request)
+    {
+        $lab_select_id = $request->lab_select_id;
+        $labDetails = LabDetails::where('lab_select_id', $lab_select_id)->get();
+        return response()->json($labDetails);
     }
 }
