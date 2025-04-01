@@ -14,13 +14,24 @@ return new class extends Migration
         Schema::create('user_management', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->string('email')->nullable();
-            $table->string('mobile')->nullable();
-            $table->string('address')->nullable();
-            $table->integer('age')->nullable();
+            $table->string('user_name')->nullable(); 
+            $table->string('password'); 
+            $table->integer('department_id')->nullable(); 
+            $table->integer('gender_id')->nullable(); 
+            $table->integer('marital_status_id')->nullable();
+            $table->text('address')->nullable();
+            $table->string('contact_no')->nullable();
+            $table->string('alternative_no')->nullable();
+            $table->string('email')->unique();
+            $table->date('date_of_join')->nullable();
             $table->date('dob')->nullable();
+            $table->text('remarks')->nullable();
+            $table->string('profile_pic')->nullable();
+            $table->integer('branch_id')->nullable();
+            $table->integer('scan_user_status')->default(0);
             $table->timestamps();
         });
+        
     }
 
     /**

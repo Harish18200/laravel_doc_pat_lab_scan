@@ -11,5 +11,31 @@ class UserManagement extends Model
 
     protected $table = 'user_management';
 
-    protected $fillable = ['name', 'email', 'mobile', 'address', 'age', 'dob'];
+    protected $fillable = [
+        'name',
+        'user_name',
+        'email',
+        'password',
+        'department_id',
+        'gender_id',
+        'marital_status_id',
+        'address',
+        'contact_no',
+        'alternative_no',
+        'date_of_join',
+        'dob',
+        'remarks',
+        'profile_pic',
+        'branch_id',
+        'scan_user_status'
+    ];
+    protected $hidden = [
+        'password',
+    ];
+
+    protected $casts = [
+        'dob' => 'date',
+        'date_of_join' => 'date',
+        'scan_user_status' => 'boolean',
+    ];
 }

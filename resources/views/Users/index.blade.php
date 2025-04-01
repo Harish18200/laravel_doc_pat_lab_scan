@@ -17,9 +17,8 @@
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Email</th>
-                <th>Mobile</th>
                 <th>Gender</th>
+                <th>Contact No</th>
                 <th>Department</th>
                 <th>Actions</th>
             </tr>
@@ -28,10 +27,27 @@
             @foreach($users as $user)
             <tr>
                 <td>{{ $user->name }}</td>
-                <td>{{ $user->email }}</td>
-                <td>{{ $user->mobile }}</td>
-                <td>{{ $user->gender }}</td>
-                <td>{{ $user->department }}</td>
+                <td>
+                    @if($user->gender_id == 1)
+                    Male
+                    @elseif($user->gender_id == 2)
+                    Female
+                    @else
+                    Other
+                    @endif
+                </td>
+                <td>{{ $user->contact_no     }}</td>
+                <td>
+                    @if($user->department_id == 1)
+                    Admin
+                    @elseif($user->department_id == 2)
+                    Laboratory
+                    @elseif($user->department_id == 3)
+                    Doctor
+                    @else
+                    Unknown
+                    @endif
+                </td>
 
                 <td>
                     <a href="{{ route('userEdit', $user->id ) }}" class="btn btn-warning">Edit</a>

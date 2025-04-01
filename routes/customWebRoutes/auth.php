@@ -38,7 +38,7 @@ Route::get('labsEdit/{id}', [LabController::class, 'labsEdit'])->name('labsEdit'
 Route::post('/labsDelete', [LabController::class, 'labsDelete'])
     ->name('labsDelete');
 
-    Route::get('/get-lab-details', [LabController::class, 'getLabDetails'])->name('getLabDetails');
+Route::get('/get-lab-details', [LabController::class, 'getLabDetails'])->name('getLabDetails');
 
 Route::get('/userView', [UserManagementController::class, 'userView'])
     ->name('userView');
@@ -107,6 +107,34 @@ Route::post('expensesDelete', [ExpenseController::class, 'expensesDelete'])
 
 
 Route::get('/search-diseases', [DiseaseController::class, 'searchDiseases'])->name('search.diseases');
+
+
+
+Route::get('/modality-master', [PharmaController::class, 'modalityMaster'])->name('modalityMaster');
+Route::get('/therapy-master', [PharmaController::class, 'therapyMaster'])->name('therapyMaster');
+Route::get('/bill-master', [PharmaController::class, 'billMaster'])->name('billMaster');
+Route::get('/add-medicine-stock', [PharmaController::class, 'addMedicineStock'])->name('addMedicineStock');
+Route::get('/modality/{id}/edit', [PharmaController::class, 'editModality'])->name('modality.edit');
+Route::put('/modality/{id}/update', [PharmaController::class, 'updateModality'])->name('modality.update');
+Route::get('/modality/create', [PharmaController::class, 'createModality'])->name('modality.create');
+Route::post('/modality/store', [PharmaController::class, 'storeModality'])->name('modality.store');
+
+
+
+Route::get('/therapy/master', [PharmaController::class, 'therapyMaster'])->name('therapy.master');
+Route::get('/therapy/create', [PharmaController::class, 'createTherapy'])->name('therapy.create');
+Route::post('/therapy/store', [PharmaController::class, 'storeTherapy'])->name('therapy.store');
+Route::get('/therapy/edit/{id}', [PharmaController::class, 'editTherapy'])->name('therapy.edit');
+Route::post('/therapy/update/{id}', [PharmaController::class, 'updateTherapy'])->name('therapy.update');
+
+
+Route::get('/bill/master', [PharmaController::class, 'billMaster'])->name('bill.master');
+Route::get('/bill/create', [PharmaController::class, 'createBill'])->name('bill.create');
+Route::post('/bill/store', [PharmaController::class, 'storeBill'])->name('bill.store');
+Route::get('/bill/edit/{id}', [PharmaController::class, 'editBill'])->name('bill.edit');
+Route::post('/bill/update/{id}', [PharmaController::class, 'updateBill'])->name('bill.update');
+
+
 
 
 Route::prefix('auth')->middleware('guest')->name('auth.')->group(function () {

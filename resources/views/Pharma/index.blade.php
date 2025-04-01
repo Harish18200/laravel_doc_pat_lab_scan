@@ -3,7 +3,12 @@
 @section('content')
 <div class="d-flex justify-content-between">
     <h2>Pharma List</h2>
-    <a href="{{ route('pharmaCreate') }}" class="btn btn-success">Add Pharma</a>
+    <div>
+        <a href="{{ route('modalityMaster') }}" class="btn btn-primary">Modality Master</a>
+        <a href="{{ route('therapyMaster') }}" class="btn btn-secondary">Therapy Master</a>
+        <a href="{{ route('billMaster') }}" class="btn btn-warning">Bill Master</a>
+        <a href="{{ route('addMedicineStock') }}" class="btn btn-success">Add Medicine in Stock</a>
+    </div>
 </div>
 @if(session('success'))
 <div class="alert alert-success">{{ session('success') }}</div>
@@ -15,7 +20,7 @@
             <th>medicine</th>
             <th>batch_no</th>
             <th>Price</th>
-           
+
             <th>record_level</th>
             <th>mfg_date</th>
             <th>exp_date</th>
