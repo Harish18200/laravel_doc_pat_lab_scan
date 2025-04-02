@@ -113,7 +113,11 @@ Route::get('/search-diseases', [DiseaseController::class, 'searchDiseases'])->na
 Route::get('/modality-master', [PharmaController::class, 'modalityMaster'])->name('modalityMaster');
 Route::get('/therapy-master', [PharmaController::class, 'therapyMaster'])->name('therapyMaster');
 Route::get('/bill-master', [PharmaController::class, 'billMaster'])->name('billMaster');
-Route::get('/add-medicine-stock', [PharmaController::class, 'addMedicineStock'])->name('addMedicineStock');
+Route::get('/addMedicineStock', [PharmaController::class, 'addMedicineStock'])->name('addMedicineStock');
+Route::post('/medicineStore', [PharmaController::class, 'medicineStore'])->name('medicineStore');
+Route::get('/medicineEdit/{id}', [PharmaController::class, 'medicineStockEdit'])->name('medicineEdit');
+Route::post('/medicineDelete', [PharmaController::class, 'medicineDelete'])->name('medicineDelete');
+
 Route::get('/modality/{id}/edit', [PharmaController::class, 'editModality'])->name('modality.edit');
 Route::put('/modality/{id}/update', [PharmaController::class, 'updateModality'])->name('modality.update');
 Route::get('/modality/create', [PharmaController::class, 'createModality'])->name('modality.create');

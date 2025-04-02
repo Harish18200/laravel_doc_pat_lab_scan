@@ -9,14 +9,15 @@ use App\Models\modalityMaster;
 use Illuminate\Http\Request;
 use App\Models\TherapyMaster;
 use App\Models\BillType;
+use App\Models\MedicineStock;
 
 class PharmaController extends Controller
 {
     public function pharmaView()
     {
+        $stocks = MedicineStock::get();
 
-        $pharmas = PharmaApplication::get();
-        return view('pharma.index', compact('pharmas'));
+        return view('pharma.add_medicine_stock', compact('stocks'));
     }
 
     public function pharmaCreate()
@@ -190,5 +191,53 @@ class PharmaController extends Controller
         $bill->update($request->all());
 
         return redirect()->route('bill.master')->with('success', 'Bill updated successfully!');
+    }
+
+    public function addMedicineStock()
+    {
+
+        return view('pharma.create_medicine');
+    }
+
+    public function medicineStockEdit($id)
+    {
+        $bill = MedicineStock::findOrFail($id);
+        return view('pharma.edit_medicine_stock', compact('bill'));
+    }
+    public function medicineStore(Request $request)
+    {
+        $id = $request->id ?? null;
+
+        $validatedData = $request->validate([
+            'bill_type' => 'required|string|max:255',
+            'medicine' => 'required|string|max:255',
+            'batch_no' => 'required|string|max:255',
+            'potency' => 'required|string|max:255',
+            'quantity' => 'required|integer',
+            'record_level' => 'required|integer',
+            'mfg_date' => 'required|date',
+            'exp_date' => 'required|date|after:mfg_date',
+            'gst' => 'required|numeric',
+            'sgst' => 'required|numeric',
+            'cgst' => 'required|numeric',
+            'price' => 'required|numeric',
+            'price_per_quantity' => 'required|numeric',
+            'status' => 'nullable|boolean',
+        ]);
+
+        $medicineStock = MedicineStock::updateOrCreate(
+            ['id' => $id],
+            $validatedData
+        );
+
+        return  redirect()->route('pharmaView');
+    }
+    public function medicineDelete(Request $request)
+    {
+        $bill = MedicineStock::find($request->id);
+        if ($bill) {
+            $bill->delete();
+        }
+        return redirect()->route('pharmaView');
     }
 }
