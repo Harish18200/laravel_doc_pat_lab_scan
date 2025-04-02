@@ -84,11 +84,13 @@ Route::delete('/patients/{id}', [DoctorController::class, 'destroy'])->name('pat
 
 
 Route::get('/appointment/{id}/approval', [DoctorController::class, 'approvalAppointment'])->name('appointment.approval');
+Route::get('/PatientDetails/{id}', [DoctorController::class, 'PatientDetails'])->name('PatientDetails');
 
 
 Route::get('viewAppointment', [DoctorController::class, 'viewAppointment'])->name('viewAppointment');
 Route::get('diseasesView', [DiseaseController::class, 'diseasesView'])->name('diseasesView');
 Route::get('promptSearch', [DiseaseController::class, 'promptSearch'])->name('promptSearch');
+Route::get('dashboard', [DiseaseController::class, 'dashboard'])->name('dashboard');
 
 
 Route::get('/expensesView', [ExpenseController::class, 'expensesView'])

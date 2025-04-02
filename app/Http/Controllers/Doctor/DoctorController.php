@@ -23,6 +23,11 @@ class DoctorController extends Controller
 
         return view('Doctors.create_patient');
     }
+    public function PatientDetails($id)
+    {
+        $patients = Patient::where('id', $id)->first();
+        return view('Doctors.PatientDetails', compact('patients'));
+    }
 
     public function viewAppointment()
     {

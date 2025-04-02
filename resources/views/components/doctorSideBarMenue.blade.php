@@ -17,6 +17,9 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link {{ Route::currentRouteName() === 'dashboard.import.users.show' ? 'fw-bold text-white' : '' }} " href="{{route('dashboard')}}">Dashboard</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() === 'dashboard.import.users.show' ? 'fw-bold text-white' : '' }} " href="{{route('PatientList')}}">Search Patient</a>
             </li>
             <li class="nav-item">

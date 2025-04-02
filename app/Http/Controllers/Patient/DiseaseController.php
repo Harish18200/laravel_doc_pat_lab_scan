@@ -14,6 +14,33 @@ class DiseaseController extends Controller
         $diseases = Disease::all();
         return view('diseases.index', compact('diseases'));
     }
+    public function dashboard()
+    {
+        $sessionId = session('user_id');
+        $appointments = Appointment::select(
+            'patients.name',
+            'patients.age',
+            'patients.gender',
+            'patients.mobile',
+            'patients.id',
+            'appointments.appointment_date'
+        )
+            ->leftJoin('patients', 'appointments.patient_id', '=', 'patients.id')
+            ->where('appointments.doctor_id', $sessionId)
+            ->get();
+        $outPatients = Appointment::select(
+            'patients.name',
+            'patients.age',
+            'patients.gender',
+            'patients.mobile',
+            'patients.id',
+        )
+            ->leftJoin('patients', 'appointments.patient_id', '=', 'patients.id')
+            ->where('appointments.appointment_status', 1)
+            ->get();;
+        $inPatients = [];
+        return view('Doctors.dashboard', compact('appointments', 'outPatients', 'inPatients'));
+    }
 
     public function promptSearch()
     {
