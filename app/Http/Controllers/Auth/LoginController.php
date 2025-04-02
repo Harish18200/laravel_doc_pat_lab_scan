@@ -80,7 +80,7 @@ class LoginController extends Controller
             'user_id' => $user->id,
             'user_name' => $user->name,
         ]);
-        return  redirect()->route('dashboard.home');
+        return  redirect()->route('dashboard');
     }
 
     public function logout(Request $request)
