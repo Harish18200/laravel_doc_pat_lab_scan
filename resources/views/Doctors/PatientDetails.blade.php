@@ -2,10 +2,12 @@
 
 @section('content')
 <div class="container">
+
+
     <!-- Patient Details -->
     <div class="card mb-4">
         <div class="card-header bg-primary text-white">
-            <h4>Patient Details</h4>
+            <h4>Add Patient Details</h4>
         </div>
         <div class="card-body">
             <table class="table table-bordered">
@@ -34,30 +36,45 @@
         </div>
     </div>
 
+
     <!-- Admission Section -->
     <div class="card mb-4">
         <div class="card-header bg-purple text-white">
             <h4>Admission</h4>
         </div>
         <div class="card-body">
-            <table class="table">
-                <tr>
-                    <td><strong>Primary Consultant:</strong> {{ $patients->consultant }}</td>
-                    <td><strong>Admission Date & Time:</strong> {{ $patients->admission_date }}</td>
-                    <td><strong>Discharge Date & Time:</strong> {{ $patients->discharge_date }}</td>
-                </tr>
-                <tr>
-                    <td><strong>IP / OP:</strong> {{ $patients->ip_op }}</td>
-                    <td><strong>Informant:</strong> {{ $patients->informant }}</td>
-                    <td><strong>Mode of Arrival:</strong> {{ $patients->arrival_mode }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Allergies:</strong> {{ $patients->allergies }}</td>
-                    <td><strong>Immunization UTD:</strong> {{ $patients->immunization_utd }}</td>
-                </tr>
-            </table>
+            <form action="" method="POST">
+                @csrf
+                <table class="table">
+                    <tr>
+                        <td><strong>Primary Consultant:</strong> <input type="text" name="consultant" class="form-control"></td>
+                        <td><strong>Admission Date & Time:</strong> <input type="datetime-local" name="admission_date" class="form-control"></td>
+                        <td><strong>Discharge Date & Time:</strong> <input type="datetime-local" name="discharge_date" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>IP / OP:</strong> <input type="text" name="ip_op" class="form-control"></td>
+                        <td><strong>Informant:</strong> <input type="text" name="informant" class="form-control"></td>
+                        <td><strong>Mode of Arrival:</strong> <input type="text" name="arrival_mode" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Allergies:</strong> <input type="text" name="allergies" class="form-control"></td>
+                        <td><strong>Immunization UTD:</strong>
+                            <select name="immunization_utd" class="form-control">
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                </table>
         </div>
+        <div class="text-end">
+            <button type="submit" class="btn btn-success btn-md">Submit</button>
+        </div>
+        </form>
+
     </div>
+
 
     <!-- Physical Examination Section -->
     <div class="card mb-4">
@@ -66,23 +83,49 @@
         </div>
         <div class="card-body">
             <table class="table">
-                <tr>
-                    <td><strong>Weight (Kg):</strong> {{ $patients->weight }}</td>
-                    <td><strong>Temperature (°F):</strong> {{ $patients->temperature }}</td>
-                    <td><strong>Pulse (b/mts):</strong> {{ $patients->pulse }}</td>
-                </tr>
-                <tr>
-                    <td><strong>BP (mm/Hg) (L):</strong> {{ $patients->bp_left }}</td>
-                    <td><strong>BP (mm/Hg) (R):</strong> {{ $patients->bp_right }}</td>
-                    <td><strong>Respiratory Rate:</strong> {{ $patients->respiratory_rate }}</td>
-                </tr>
-                <tr>
-                    <td><strong>SpO₂ (%):</strong> {{ $patients->spo2 }}</td>
-                    <td><strong>Pain Scale (1-10):</strong> {{ $patients->pain_scale }}</td>
-                    <td><strong>GRBS:</strong> {{ $patients->grbs }}</td>
-                </tr>
+                <form action="" method="POST">
+                    @csrf
+                    <tr>
+                        <td><strong>Weight (Kg):</strong> <input type="number" name="weight" class="form-control"></td>
+                        <td><strong>Temperature (°F):</strong> <input type="text" name="temperature" class="form-control"></td>
+                        <td><strong>Pulse (b/mts):</strong> <input type="number" name="pulse" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>BP (L):</strong> <input type="text" name="bp_left" class="form-control"></td>
+                        <td><strong>BP (R):</strong> <input type="text" name="bp_right" class="form-control"></td>
+                        <td><strong>Respiratory Rate:</strong> <input type="number" name="respiratory_rate" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>SpO₂ (%):</strong> <input type="number" name="spo2" class="form-control"></td>
+                        <td><strong>Pain Scale (1-10):</strong> <input type="number" name="pain_scale" class="form-control"></td>
+                        <td><strong>GRBS:</strong> <input type="text" name="grbs" class="form-control"></td>
+                    </tr>
+            </table>
+            <div class="text-end">
+                <button type="submit" class="btn btn-success btn-md">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Note Section -->
+    <div class="card mb-4">
+        <div class="card-header bg-purple text-white">
+            <h4>Histroy</h4>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <form action="" method="POST">
+                    @csrf
+
+                    <td><strong>Symptoms</strong> <input type="number" name="spo2" class="form-control"></td>
+                    <td><strong>Disease:</strong> <input type="number" name="pain_scale" class="form-control"></td>
+                    </tr>
             </table>
         </div>
+    </div>
+    <div class="text-end">
+        <button type="submit" class="btn btn-success btn-md">Submit</button>
+        </form>
     </div>
 </div>
 
