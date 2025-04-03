@@ -6,7 +6,7 @@
 </div>
 <div class="container">
     <h2 class="mb-4">Dashboard</h2>
-    <!-- Appointments Table -->
+  
     <div class="card mb-4">
         <div class="card-header bg-primary text-white">Appointments: {{ count($appointments) }}</div>
         <div class="table-responsive">
@@ -16,7 +16,7 @@
                         <th>ID</th>
                         <th>Appointment Date</th>
                         <th>Name</th>
-                        <th>Age</th>
+                    
                         <th>Gender</th>
                         <th>Contant NO</th>
                         <th>Actions</th>
@@ -24,17 +24,18 @@
                 </thead>
                 <tbody>
                     @foreach($appointments as $appointment)
+                    @if($appointment->id && $appointment->patient_name  && $appointment->gender && $appointment->mobile)
                     <tr>
                         <td>{{ $appointment->id }}</td>
                         <td>{{ $appointment->appointment_date }}</td>
-                        <td>{{ $appointment->name }}</td>
-                        <td>{{ $appointment->age }}</td>
+                        <td>{{ $appointment->patient_name }}</td>
                         <td>{{ $appointment->gender }}</td>
                         <td>{{ $appointment->mobile }}</td>
                         <td> <a href="{{ route('patients.edit', $appointment->id) }}" class="btn btn-primary btn-sm">Edit</a>
 
                         </td>
                     </tr>
+                    @endif
                     @endforeach
                 </tbody>
             </table>
@@ -50,7 +51,6 @@
                     <tr>
                         <th>ID</th>
                         <th>Patient Name</th>
-                        <th>Age</th>
                         <th>Gender</th>
                         <th>Contact No.</th>
                         <th>Action</th>
@@ -58,11 +58,11 @@
                 </thead>
                 <tbody>
                     @foreach($outPatients as $patient)
-                    @if($patient->id && $patient->name && $patient->age && $patient->gender && $patient->mobile)
+                    @if($patient->id && $patient->patient_name   && $patient->gender && $patient->mobile)
                     <tr>
                         <td>{{ $patient->id }}</td>
-                        <td>{{ $patient->name }}</td>
-                        <td>{{ $patient->age }}</td>
+                        <td>{{ $patient->patient_name }}</td>
+                      
                         <td>{{ $patient->gender }}</td>
                         <td>{{ $patient->mobile }}</td>
                         <td><a href="{{ route('PatientDetails', $patient->id) }}" class="btn btn-primary btn-sm">View</a></td>
@@ -83,7 +83,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Patient Name</th>
-                        <th>Age</th>
+                       
                         <th>Gender</th>
                         <th>Contact No.</th>
 
@@ -93,8 +93,7 @@
                     @foreach($inPatients as $patient)
                     <tr>
                         <td>{{ $patient->id }}</td>
-                        <td>{{ $patient->name }}</td>
-                        <td>{{ $patient->age }}</td>
+                        <td>{{ $patient->patient_name }}</td>
                         <td>{{ $patient->gender }}</td>
                         <td>{{ $patient->mobile }}</td>
                     </tr>

@@ -13,14 +13,18 @@ return new class extends Migration
     {
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
+            $table->string('patient_name')->nullable();
             $table->string('email')->nullable();
             $table->string('mobile')->nullable();
-            $table->integer('age')->nullable();
-            $table->string('problem')->nullable();
-            $table->enum('gender', ['male', 'female', 'other']);
+            $table->string('alternate_no')->nullable();
+            $table->string('caregiver_name')->nullable();
+            $table->string('relationship')->nullable();
+            $table->string('remarks')->nullable();
+            $table->string('refferred_by')->nullable();
+            $table->string('martial_status')->nullable();
+            $table->string('gender');
             $table->string('address')->nullable();
-            $table->date('dob')->nullable();
+            $table->string('dob')->nullable();
             $table->string('password')->nullable();
             $table->timestamps();
         });

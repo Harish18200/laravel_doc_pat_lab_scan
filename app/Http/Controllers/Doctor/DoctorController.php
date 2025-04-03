@@ -39,17 +39,11 @@ class DoctorController extends Controller
 
     public function patientStore(Request $request)
     {
+      
         $patientId = isset($request->patientId) ? $request->patientId : null;
-        // $request->validate([
-        //     'name' => 'required|string|max:255',
-        //     'email' => 'required|email',
-        //     'mobile' => 'required|string|max:15',
-        //     'age' => 'required|integer|min:1',
-        //     'gender' => 'required|string|in:Male,Female',
-        // ]);
+  
 
         if ($patientId) {
-           
             $model = Patient::findOrFail($patientId);
             $message = "Patient updated successfully.";
         } else {
@@ -57,14 +51,19 @@ class DoctorController extends Controller
             $message = "Patient added successfully.";
         }
 
-        $model->name = $request->name;
-        $model->email = $request->email;
-        $model->mobile = $request->mobile;
-        $model->age = $request->age;
-        $model->gender = $request->gender;
-        $model->problem = $request->problem ?? null;
+        $model->patient_name = $request->patient_name?? null;
+        $model->email = $request->email?? null;
+        $model->mobile = $request->contact_no?? null;
+        $model->gender = $request->gender?? null;
         $model->address = $request->address ?? null;
         $model->dob = $request->dob ?? null;
+        $model->martial_status = $request->marital_status?? null;
+        $model->alternate_no = $request->alternate_no?? null;
+        $model->caregiver_name = $request->caregiver_name?? null;
+        $model->relationship = $request->relationship?? null;
+        $model->remarks = $request->remark?? null;
+        $model->refferred_by = $request->referred_by?? null;
+
 
 
         if (!$model->exists) {

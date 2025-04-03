@@ -9,42 +9,110 @@
     @endif
 
     <form action="{{ route('patientStore') }}" method="POST">
-        @csrf
+    @csrf
 
+    <div class="row">
+        <!-- Left Side Inputs -->
+        <div class="col-md-6">
+            <!-- Patient Name -->
+            <div class="mb-3">
+                <label for="patient_name" class="form-label">Patient Name</label>
+                <input type="text" class="form-control" id="patient_name" name="patient_name" value="{{ $patient->patient_name }}" required>
+                <input type="hidden" name="patientId" value="{{ $patient->id }}">
+            </div>
 
-        <div class="mb-3">
-            <label for="name" class="form-label">Patient Name</label>
-            <input type="text" class="form-control" id="name" name="name" value="{{ $patient->name }}" required>
-            <input hidden type="text" class="form-control" id="name" name="patientId" value="{{ $patient->id }}">
+            <!-- Gender -->
+            <div class="mb-3">
+                <label for="gender" class="form-label">Gender</label>
+                <select class="form-control" id="gender" name="gender">
+                    <option value="Male" {{ $patient->gender == 'Male' ? 'selected' : '' }}>Male</option>
+                    <option value="Female" {{ $patient->gender == 'Female' ? 'selected' : '' }}>Female</option>
+                    <option value="Other" {{ $patient->gender == 'Other' ? 'selected' : '' }}>Other</option>
+                </select>
+            </div>
 
+            <!-- Marital Status -->
+            <div class="mb-3">
+                <label for="marital_status" class="form-label">Marital Status</label>
+                <select class="form-control" id="marital_status" name="marital_status">
+                    <option value="Single" {{ $patient->marital_status == 'Single' ? 'selected' : '' }}>Single</option>
+                    <option value="Married" {{ $patient->marital_status == 'Married' ? 'selected' : '' }}>Married</option>
+                    <option value="Divorced" {{ $patient->marital_status == 'Divorced' ? 'selected' : '' }}>Divorced</option>
+                    <option value="Widowed" {{ $patient->marital_status == 'Widowed' ? 'selected' : '' }}>Widowed</option>
+                </select>
+            </div>
+
+            <!-- Date of Birth -->
+            <div class="mb-3">
+                <label for="dob" class="form-label">Date of Birth</label>
+                <input type="date" class="form-control" id="dob" name="dob" value="{{ $patient->dob }}" required>
+            </div>
+
+            <!-- Age (Auto-calculated) -->
+            <div class="mb-3">
+                <label for="age" class="form-label">Age</label>
+                <input type="text" class="form-control" id="age" name="age"
+                    value="{{ \Carbon\Carbon::parse($patient->dob)->diffInYears(\Carbon\Carbon::now()) }} years" readonly>
+            </div>
+
+            <!-- Address -->
+            <div class="mb-3">
+                <label for="address" class="form-label">Address</label>
+                <textarea class="form-control" id="address" name="address" rows="2" required>{{ $patient->address }}</textarea>
+            </div>
+
+            <!-- Contact Number -->
+            <div class="mb-3">
+                <label for="contact_no" class="form-label">Contact No</label>
+                <input type="text" class="form-control" id="contact_no" name="contact_no" value="{{ $patient->mobile }}" required>
+            </div>
         </div>
 
-        <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" name="email" value="{{ $patient->email }}" required>
-        </div>
+        <!-- Right Side Inputs -->
+        <div class="col-md-6">
+            <!-- Alternate Contact Number -->
+            <div class="mb-3">
+                <label for="alternate_no" class="form-label">Alternate No</label>
+                <input type="text" class="form-control" id="alternate_no" name="alternate_no" value="{{ $patient->alternate_no }}">
+            </div>
 
-        <div class="mb-3">
-            <label for="mobile" class="form-label">Phone</label>
-            <input type="text" class="form-control" id="mobile" name="mobile" value="{{ $patient->mobile }}" required>
-        </div>
+            <!-- Email -->
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{ $patient->email }}">
+            </div>
 
-        <div class="mb-3">
-            <label for="age" class="form-label">Age</label>
-            <input type="number" class="form-control" id="age" name="age" value="{{ $patient->age }}" required>
-        </div>
+            <!-- Caregiver Name -->
+            <div class="mb-3">
+                <label for="caregiver_name" class="form-label">Caregiver Name</label>
+                <input type="text" class="form-control" id="caregiver_name" name="caregiver_name" value="{{ $patient->caregiver_name }}">
+            </div>
 
-        <div class="mb-3">
-            <label for="gender" class="form-label">Gender</label>
-            <select class="form-control" id="gender" name="gender">
-                <option value="male" {{ $patient->gender == 'male' ? 'selected' : '' }}>Male</option>
-                <option value="female" {{ $patient->gender == 'female' ? 'selected' : '' }}>Female</option>
-                <option value="other" {{ $patient->gender == 'other' ? 'selected' : '' }}>Other</option>
-            </select>
-        </div>
+            <!-- Relationship -->
+            <div class="mb-3">
+                <label for="relationship" class="form-label">Relationship</label>
+                <input type="text" class="form-control" id="relationship" name="relationship" value="{{ $patient->relationship }}">
+            </div>
 
-        <button type="submit" class="btn btn-primary">Update Patient</button>
+            <!-- Remark -->
+            <div class="mb-3">
+                <label for="remark" class="form-label">Remark</label>
+                <textarea class="form-control" id="remark" name="remark" rows="2">{{ $patient->remarks }}</textarea>
+            </div>
+
+            <!-- Referred By -->
+            <div class="mb-3">
+                <label for="referred_by" class="form-label">Referred By</label>
+                <input type="text" class="form-control" id="referred_by" name="referred_by" value="{{ $patient->refferred_by }}">
+            </div>
+        </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="mt-3 text-center">
+        <button type="submit" class="btn btn-success">Update Patient</button>
         <a href="{{ route('PatientList') }}" class="btn btn-secondary">Cancel</a>
-    </form>
+    </div>
+</form>
 </div>
 @endsection

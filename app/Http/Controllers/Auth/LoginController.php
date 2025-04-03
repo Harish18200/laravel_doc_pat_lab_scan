@@ -45,27 +45,47 @@ class LoginController extends Controller
                 $user = Doctor::where('email', $request->email)->first();
                 $viewId = 1;
                 $route ='dashboard';
+                session([
+                    'user_id' => $user->id,
+                    'user_name' => $user->name,
+                ]);
                 break;
             case 3:
                 $user = Patient::where('email', $request->email)->first();
                 $viewId = 2;
                 $route ='home';
+                session([
+                    'user_id' => $user->id,
+                    'user_name' => $user->patient_name,
+                ]);
                 break;
             case 4:
                 $user = Lab::where('email', $request->email)->first();
                 $viewId = 3;
                 $route ='LabView';
+                session([
+                    'user_id' => $user->id,
+                    'user_name' => $user->name,
+                ]);
                 break;
             case 5:
                 $user = Pharma::where('email', $request->email)->first();
 
                 $viewId = 4;
                 $route ='pharmaView';
+                session([
+                    'user_id' => $user->id,
+                    'user_name' => $user->name,
+                ]);
                 break;
             case 6:
                 $user = ScanDoctor::where('email', $request->email)->first();
                 $viewId = 5;
                 $route ='scanInvoiceView';
+                session([
+                    'user_id' => $user->id,
+                    'user_name' => $user->name,
+                ]);
                 break;
             default:
                 return response()->json([
@@ -81,10 +101,6 @@ class LoginController extends Controller
             ], 401);
         }
         session()->put('viewId', $viewId);
-        session([
-            'user_id' => $user->id,
-            'user_name' => $user->name,
-        ]);
         return  redirect()->route($route);
     }
 

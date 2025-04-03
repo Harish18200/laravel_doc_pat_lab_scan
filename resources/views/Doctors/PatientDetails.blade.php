@@ -12,8 +12,8 @@
         <div class="card-body">
             <table class="table table-bordered">
                 <tr>
-                    <td><strong>Name:</strong> {{ $patients->name }}</td>
-                    <td><strong>Age:</strong> {{ $patients->age }}</td>
+                    <td><strong>Name:</strong> {{ $patients->patient_name }}</td>
+                    <td><strong>Age:</strong> {{ \Carbon\Carbon::parse($patients->dob)->diffInYears(\Carbon\Carbon::create(2025, 1, 1)) }}</td>
                     <td><strong>Sex:</strong> {{ $patients->gender }}</td>
                     <td><strong>UHID No:</strong> {{ $patients->uhid }}</td>
                     <td><strong>Reg No:</strong> {{ $patients->reg_no }}</td>

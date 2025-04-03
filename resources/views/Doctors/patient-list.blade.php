@@ -28,10 +28,10 @@
         @forelse($patients as $patient)
         <tr>
             <td>{{ $patient->id }}</td>
-            <td class="patient-name">{{ $patient->name }}</td>
+            <td class="patient-name">{{ $patient->patient_name }}</td>
             <td>{{ $patient->email }}</td>
             <td>{{ $patient->mobile }}</td>
-            <td>{{ $patient->age }}</td>
+            <td>{{ \Carbon\Carbon::parse($patient->dob)->diffInYears(\Carbon\Carbon::create(2025, 1, 1)) }} </td>
             <td>{{ $patient->gender }}</td>
             <td>
                 <a href="{{ route('patients.edit', $patient->id) }}" class="btn btn-primary btn-sm">Edit</a>

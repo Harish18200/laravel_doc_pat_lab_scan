@@ -19,8 +19,7 @@ class DiseaseController extends Controller
     {
         $sessionId = session('user_id');
         $appointments = Appointment::select(
-            'patients.name',
-            'patients.age',
+            'patients.patient_name',
             'patients.gender',
             'patients.mobile',
             'patients.id',
@@ -30,8 +29,7 @@ class DiseaseController extends Controller
             ->where('appointments.doctor_id', $sessionId)
             ->get();
         $outPatients = Appointment::select(
-            'patients.name',
-            'patients.age',
+            'patients.patient_name',   
             'patients.gender',
             'patients.mobile',
             'patients.id',
@@ -40,8 +38,7 @@ class DiseaseController extends Controller
             ->where('appointments.appointment_status', 1)
             ->get();
         $inPatients =PatientDisease::select(
-            'patients.name',
-            'patients.age',
+            'patients.patient_name',
             'patients.gender',
             'patients.mobile',
             'patients.id',
