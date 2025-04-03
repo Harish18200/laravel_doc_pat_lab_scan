@@ -6,7 +6,7 @@
 </div>
 <div class="container">
     <h2 class="mb-4">Dashboard</h2>
-     <!-- Appointments Table -->
+    <!-- Appointments Table -->
     <div class="card mb-4">
         <div class="card-header bg-primary text-white">Appointments: {{ count($appointments) }}</div>
         <div class="table-responsive">
@@ -58,15 +58,16 @@
                 </thead>
                 <tbody>
                     @foreach($outPatients as $patient)
+                    @if($patient->id && $patient->name && $patient->age && $patient->gender && $patient->mobile)
                     <tr>
                         <td>{{ $patient->id }}</td>
                         <td>{{ $patient->name }}</td>
                         <td>{{ $patient->age }}</td>
                         <td>{{ $patient->gender }}</td>
                         <td>{{ $patient->mobile }}</td>
-                        <td> <a href="{{ route('PatientDetails', $patient->id) }}" class="btn btn-primary btn-sm">view</a>
-
+                        <td><a href="{{ route('PatientDetails', $patient->id) }}" class="btn btn-primary btn-sm">View</a></td>
                     </tr>
+                    @endif
                     @endforeach
                 </tbody>
             </table>
