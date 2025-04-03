@@ -24,7 +24,7 @@ class LoginController extends Controller
 
     public function authenticate(Request $request)
     {
-
+       
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required',
@@ -44,23 +44,28 @@ class LoginController extends Controller
             case 2:
                 $user = Doctor::where('email', $request->email)->first();
                 $viewId = 1;
+                $route ='dashboard';
                 break;
             case 3:
                 $user = Patient::where('email', $request->email)->first();
                 $viewId = 2;
+                $route ='home';
                 break;
             case 4:
                 $user = Lab::where('email', $request->email)->first();
                 $viewId = 3;
+                $route ='LabView';
                 break;
             case 5:
                 $user = Pharma::where('email', $request->email)->first();
-               
+
                 $viewId = 4;
+                $route ='pharmaView';
                 break;
             case 6:
                 $user = ScanDoctor::where('email', $request->email)->first();
                 $viewId = 5;
+                $route ='scanInvoiceView';
                 break;
             default:
                 return response()->json([
@@ -80,7 +85,7 @@ class LoginController extends Controller
             'user_id' => $user->id,
             'user_name' => $user->name,
         ]);
-        return  redirect()->route('dashboard');
+        return  redirect()->route($route);
     }
 
     public function logout(Request $request)

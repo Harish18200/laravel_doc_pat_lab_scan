@@ -53,7 +53,7 @@
                 <table class="table">
                     <tr>
                         <input hidden type="text" name="patient_id" value="{{ $patients->id }}" class="form-control">
-                        <td><strong>Primary Consultant:</strong> <input type="text" name="consultant" class="form-control"></td>
+                        <td><strong>Primary Consultant:</strong> <input type="text" name="consultant" value="{{ session('user_name') }}" class="form-control" readonly></td>
                         <td><strong>Admission Date & Time:</strong> <input type="datetime-local" name="admission_date" class="form-control"></td>
                         <td><strong>Discharge Date & Time:</strong> <input type="datetime-local" name="discharge_date" class="form-control"></td>
                     </tr>
