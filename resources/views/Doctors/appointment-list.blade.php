@@ -6,7 +6,7 @@
     <h2 class="mb-4">Appointments List</h2>
 
     <!-- Search Input -->
-    <input type="text" id="searchAppointment" class="form-control mb-3" placeholder="Search Patient Name...">
+    <input type="text" id="searchAppointment" class="form-control mb-3" placeholder="Search your Date ...">
 
     <!-- Scrollable Table -->
     <div class="table-responsive" style="max-height: 400px; overflow-y: auto; border: 1px solid #dee2e6;">
@@ -24,9 +24,9 @@
                 @forelse($appointments as $appointment)
                 <tr>
                     <td>{{ $appointment->id }}</td>
-                    <td class="patient-name">{{ $appointment->patientName }}</td>
+                    <td >{{ $appointment->patientName }}</td>
                     <td>{{ $appointment->problem }}</td>
-                    <td>{{ \Carbon\Carbon::parse($appointment->appointment_date)->format('d M Y') }}</td>
+                    <td class="patient-date">{{ \Carbon\Carbon::parse($appointment->appointment_date)->format('d M Y') }}</td>
                     <td>
                         @if(!is_null($appointment->appointment_status) && $appointment->appointment_status == 1)
                         <span class="badge bg-success">Approved</span>
@@ -57,7 +57,7 @@
         $("#searchAppointment").on("keyup", function() {
             var value = $(this).val().toLowerCase();
             $("#appointmentTable tr").filter(function() {
-                $(this).toggle($(this).find(".patient-name").text().toLowerCase().indexOf(value) > -1);
+                $(this).toggle($(this).find(".patient-date").text().toLowerCase().indexOf(value) > -1);
             });
         });
     });

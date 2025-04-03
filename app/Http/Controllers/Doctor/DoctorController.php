@@ -39,16 +39,18 @@ class DoctorController extends Controller
 
     public function patientStore(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email',
-            'mobile' => 'required|string|max:15',
-            'age' => 'required|integer|min:1',
-            'gender' => 'required|string|in:Male,Female',
-        ]);
+        $patientId = isset($request->patientId) ? $request->patientId : null;
+        // $request->validate([
+        //     'name' => 'required|string|max:255',
+        //     'email' => 'required|email',
+        //     'mobile' => 'required|string|max:15',
+        //     'age' => 'required|integer|min:1',
+        //     'gender' => 'required|string|in:Male,Female',
+        // ]);
 
-        if (isset($request->patientId)) {
-            $model = Patient::findOrFail($request->patientId);
+        if ($patientId) {
+           
+            $model = Patient::findOrFail($patientId);
             $message = "Patient updated successfully.";
         } else {
             $model = new Patient();
@@ -64,12 +66,12 @@ class DoctorController extends Controller
         $model->address = $request->address ?? null;
         $model->dob = $request->dob ?? null;
 
-        // If creating a new patient, hash the password
+
         if (!$model->exists) {
             $model->password = isset($request->password) ? Hash::make($request->password) : Hash::make('12345678');
         }
 
-        // Save the model
+
         $model->save();
 
         return redirect()->route('PatientList')->with('success', $message);
