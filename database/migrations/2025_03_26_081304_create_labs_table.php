@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('lab_applications', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
-            $table->string('address')->nullable();
-            $table->string('phone')->nullable();
+            $table->string('lab_details')->nullable();
+            $table->string('normal_range')->nullable();
+            $table->string('unit')->nullable();
+            $table->string('price')->nullable();
+            $table->string('Child')->nullable();
             $table->timestamps();
         });
     }

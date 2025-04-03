@@ -5,9 +5,10 @@ namespace App\Http\Controllers\Lab;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Models\LabDetails;
+use App\Models\LabMaster;
 use App\Models\LabApplication;
 use Illuminate\Http\Request;
-use App\Models\LabMaster;
+
 
 class LabController extends Controller
 {
@@ -15,61 +16,70 @@ class LabController extends Controller
     {
 
         $labs = LabMaster::all();
-        $labDetails = LabDetails::all(); // Fetch all data initially
+        $labDetails = LabDetails::all(); 
         return view('lab.index', compact('labs', 'labDetails'));
     }
 
     public function labCreate()
     {
-
-        return view('lab.create');
+        $lab_masters =LabMaster::all();
+        return view('lab.create',compact('lab_masters'));
     }
     public function labStore(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'address' => 'nullable|string|max:255',
-            'phone' => 'nullable|string|max:20',
+            'lab_master_id' => 'required',
+            'lab_details' => 'required|string',
+            'normal_range' => 'nullable|string',
+            'unit' => 'nullable|string',
+            'price' => 'required|string',
+            'child' => 'nullable|string',
         ]);
+    
         if ($request->filled('labApplication_id')) {
-            $lab = LabApplication::find($request->labApplication_id);
+            $lab = LabDetails::find($request->labApplication_id);
             if ($lab) {
-                $lab->update($request->only(['name', 'address', 'phone']));
+                $lab->update([
+                    'lab_select_id' => $request->lab_master_id,
+                    'lab_details' => $request->lab_details,
+                    'normal_range' => $request->normal_range,
+                    'unit' => $request->unit,
+                    'price' => $request->price,
+                    'child' => $request->Child,
+                ]);
                 return redirect()->route('LabView')->with('success', 'Lab updated successfully');
             } else {
                 return redirect()->route('LabView')->with('error', 'Lab not found');
             }
         } else {
-            LabApplication::create($request->only(['name', 'address', 'phone']));
+            LabDetails::create([
+                'lab_select_id' => $request->lab_master_id,
+                'lab_details' => $request->lab_details,
+                'normal_range' => $request->normal_range,
+                'unit' => $request->unit,
+                'price' => $request->price,
+                'child' => $request->Child,
+            ]);
             return redirect()->route('LabView')->with('success', 'Lab created successfully');
         }
     }
-
+    
 
 
     public function labsEdit($id)
     {
-        $labApplication = LabApplication::findOrFail($id);
-        return view('lab.edit', compact('labApplication'));
+        $lab_masters =LabMaster::all();
+        
+        $labApplication = LabDetails::findOrFail($id);
+        return view('lab.edit', compact('labApplication','lab_masters'));
     }
 
-    public function update(Request $request, LabApplication $lab)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'address' => 'nullable|string|max:255',
-            'phone' => 'nullable|string|max:20',
-        ]);
-
-        $lab->update($request->all());
-
-        return redirect()->route('labs.index')->with('success', 'Lab updated successfully');
-    }
+   
 
     public function labsDelete(Request $request)
     {
-
-        $labAppointment = LabApplication::find($request->lab_id);
+      
+        $labAppointment = LabDetails::find($request->lab_id);
         if ($labAppointment) {
             $labAppointment->delete();
         }
