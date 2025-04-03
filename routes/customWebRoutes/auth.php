@@ -19,6 +19,10 @@ Route::get('/createAppointments', [PatientController::class, 'createAppointments
 Route::post('/storeAppointments', [PatientController::class, 'storeAppointments'])
     ->name('storeAppointments');
 Route::get('editAppointments/{id}', [PatientController::class, 'editAppointments'])->name('editAppointments');
+Route::post('/admissionStore', [PatientController::class, 'admissionStore'])->name('admissionStore');
+Route::post('/physicalExaminationStore', [PatientController::class, 'physicalExaminationStore'])->name('physicalExaminationStore');
+Route::post('/patientDiseaseStore', [PatientController::class, 'patientDiseaseStore'])->name('patientDiseaseStore');
+
 
 Route::post('/deleteAppointments', [PatientController::class, 'deleteAppointments'])
     ->name('deleteAppointments');
@@ -81,17 +85,12 @@ Route::get('patientsCreate', [DoctorController::class, 'patientsCreate'])->name(
 Route::post('patientStore', [DoctorController::class, 'patientStore'])->name('patientStore');
 Route::get('/patients/{id}/edit', [DoctorController::class, 'edit'])->name('patients.edit');
 Route::delete('/patients/{id}', [DoctorController::class, 'destroy'])->name('patients.destroy');
-
-
 Route::get('/appointment/{id}/approval', [DoctorController::class, 'approvalAppointment'])->name('appointment.approval');
 Route::get('/PatientDetails/{id}', [DoctorController::class, 'PatientDetails'])->name('PatientDetails');
-
-
 Route::get('viewAppointment', [DoctorController::class, 'viewAppointment'])->name('viewAppointment');
 Route::get('diseasesView', [DiseaseController::class, 'diseasesView'])->name('diseasesView');
 Route::get('promptSearch', [DiseaseController::class, 'promptSearch'])->name('promptSearch');
 Route::get('dashboard', [DiseaseController::class, 'dashboard'])->name('dashboard');
-
 
 Route::get('/expensesView', [ExpenseController::class, 'expensesView'])
     ->name('expensesView');
@@ -109,6 +108,7 @@ Route::post('expensesDelete', [ExpenseController::class, 'expensesDelete'])
 
 
 Route::get('/search-diseases', [DiseaseController::class, 'searchDiseases'])->name('search.diseases');
+Route::get('/get-disease', [DiseaseController::class, 'getDisease'])->name('get.disease');
 
 
 

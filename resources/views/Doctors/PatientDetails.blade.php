@@ -43,10 +43,16 @@
             <h4>Admission</h4>
         </div>
         <div class="card-body">
-            <form action="" method="POST">
+            @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+            @endif
+            <form action="{{route('admissionStore')}}" method="POST">
                 @csrf
                 <table class="table">
                     <tr>
+                        <input hidden type="text" name="patient_id" value="{{ $patients->id }}" class="form-control">
                         <td><strong>Primary Consultant:</strong> <input type="text" name="consultant" class="form-control"></td>
                         <td><strong>Admission Date & Time:</strong> <input type="datetime-local" name="admission_date" class="form-control"></td>
                         <td><strong>Discharge Date & Time:</strong> <input type="datetime-local" name="discharge_date" class="form-control"></td>
@@ -83,9 +89,17 @@
         </div>
         <div class="card-body">
             <table class="table">
-                <form action="" method="POST">
+                @if(session('successMessage'))
+                <div class="alert alert-success">
+                    {{ session('successMessage') }}
+                </div>
+                @endif
+
+                <form action="{{route('physicalExaminationStore')}}" method="POST">
                     @csrf
                     <tr>
+                        <input hidden type="text" name="patient_id" value="{{ $patients->id }}" class="form-control">
+
                         <td><strong>Weight (Kg):</strong> <input type="number" name="weight" class="form-control"></td>
                         <td><strong>Temperature (°F):</strong> <input type="text" name="temperature" class="form-control"></td>
                         <td><strong>Pulse (b/mts):</strong> <input type="number" name="pulse" class="form-control"></td>
@@ -114,11 +128,37 @@
         </div>
         <div class="card-body">
             <table class="table">
-                <form action="" method="POST">
+                @if(session('StoreMessage'))
+                <div class="alert alert-success">
+                    {{ session('StoreMessage') }}
+                </div>
+                @endif
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+                <form action="{{route('patientDiseaseStore')}}" method="POST">
                     @csrf
-
-                    <td><strong>Symptoms</strong> <input type="number" name="spo2" class="form-control"></td>
-                    <td><strong>Disease:</strong> <input type="number" name="pain_scale" class="form-control"></td>
+                    <td>
+                        <input hidden type="text" name="patient_id" value="{{ $patients->id }}" class="form-control">
+                        <strong>Symptoms</strong>
+                        <input type="text" name="symptoms" id="symptoms" class="form-control">
+                        @error('symptoms')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </td>
+                    <td>
+                        <strong>Disease:</strong>
+                        <input readonly type="text" name="disease" id="disease" class="form-control">
+                    </td>
+                    @error('disease')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
                     </tr>
             </table>
         </div>
@@ -134,4 +174,31 @@
         background-color: #800080 !important;
     }
 </style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#symptoms').on('keyup', function() {
+            let symptom = $(this).val();
+
+            if (symptom.length > 2) {
+                $.ajax({
+                    url: "{{ route('get.disease') }}",
+                    type: "GET",
+                    data: {
+                        symptom: symptom
+                    },
+                    success: function(response) {
+                        $('#disease').val(response.disease);
+                    },
+                    error: function() {
+                        $('#disease').val('Error fetching disease');
+                    }
+                });
+            } else {
+                $('#disease').val('');
+            }
+        });
+    });
+</script>
+
 @endsection

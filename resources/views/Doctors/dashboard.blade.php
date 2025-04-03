@@ -84,8 +84,7 @@
                         <th>Age</th>
                         <th>Gender</th>
                         <th>Contact No.</th>
-                        <th>Action</th>
-
+                       
                     </tr>
                 </thead>
                 <tbody>
@@ -95,7 +94,7 @@
                         <td>{{ $patient->name }}</td>
                         <td>{{ $patient->age }}</td>
                         <td>{{ $patient->gender }}</td>
-                        <td>{{ $patient->contact }}</td>
+                        <td>{{ $patient->mobile }}</td>
                     </tr>
                     @endforeach
                 </tbody>

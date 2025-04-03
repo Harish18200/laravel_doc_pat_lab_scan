@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Patient;
 use App\Http\Controllers\Controller;
 use App\Models\Disease;
 use App\Models\Appointment;
+use App\Models\PatientDisease;
 use Illuminate\Http\Request;
 
 class DiseaseController extends Controller
@@ -37,8 +38,16 @@ class DiseaseController extends Controller
         )
             ->leftJoin('patients', 'appointments.patient_id', '=', 'patients.id')
             ->where('appointments.appointment_status', 1)
-            ->get();;
-        $inPatients = [];
+            ->get();
+        $inPatients =PatientDisease::select(
+            'patients.name',
+            'patients.age',
+            'patients.gender',
+            'patients.mobile',
+            'patients.id',
+        )
+            ->leftJoin('patients', 'patient_diseases.patient_id', '=', 'patients.id')
+            ->get();
         return view('Doctors.dashboard', compact('appointments', 'outPatients', 'inPatients'));
     }
 
@@ -66,5 +75,18 @@ class DiseaseController extends Controller
         }
 
         return response()->json($patientDetails);
+    }
+
+    public function getDisease(Request $request)
+    {
+        $symptom = $request->symptom;
+
+        $disease = Disease::where('symptoms', $symptom)->first();
+
+        if ($disease) {
+            return response()->json(['disease' => $disease->diseases]);
+        } else {
+            return response()->json(['disease' => 'No matching disease found']);
+        }
     }
 }
