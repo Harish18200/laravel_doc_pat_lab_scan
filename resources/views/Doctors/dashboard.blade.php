@@ -1,11 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-
+<div class="mb-3">
+    <a href="{{ route('patientsCreate') }}" class="btn btn-primary float-end">Add Patient</a>
+</div>
 <div class="container">
     <h2 class="mb-4">Dashboard</h2>
-
-    <!-- Appointments Table -->
+     <!-- Appointments Table -->
     <div class="card mb-4">
         <div class="card-header bg-primary text-white">Appointments: {{ count($appointments) }}</div>
         <div class="table-responsive">
@@ -84,7 +85,7 @@
                         <th>Age</th>
                         <th>Gender</th>
                         <th>Contact No.</th>
-                       
+
                     </tr>
                 </thead>
                 <tbody>
