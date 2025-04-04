@@ -5,3 +5,8 @@
 #link{
     text-decoration: none;
 }
+
+.hospital-bg {
+    background: url('/images/roomView.jpg') no-repeat center center;
+    background-size: cover;
+}

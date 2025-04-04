@@ -26,6 +26,9 @@
     @if(session('viewId') == 5)
     @include('components.scanSideBarMenue')
     @endif
+    @if(session('viewId') == 6)
+    @include('components.admin')
+    @endif
 
     <div id="mainContent" class="p-3">
 

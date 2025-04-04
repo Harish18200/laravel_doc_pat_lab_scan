@@ -13,6 +13,7 @@ use App\Models\Patient;
 use App\Models\Lab;
 use App\Models\Pharma;
 use App\Models\ScanDoctor;
+use App\Models\User;
 
 class LoginController extends Controller
 {
@@ -28,7 +29,7 @@ class LoginController extends Controller
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required',
-            'user_type' => 'required|in:2,3,4,5,6',
+            'user_type' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -40,7 +41,17 @@ class LoginController extends Controller
 
         $user = null;
 
-        switch ($request->user_type) {
+        switch ($request->user_type) {  
+            case 1:
+            $user = User::where('email', $request->email)->first();
+      
+            $viewId = 6;
+            $route ='expensesView';
+            session([
+                'user_id' => $user->id,
+                'user_name' => $user->name,
+            ]);
+            break;
             case 2:
                 $user = Doctor::where('email', $request->email)->first();
                 $viewId = 1;

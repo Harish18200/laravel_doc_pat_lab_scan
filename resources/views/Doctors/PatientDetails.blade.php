@@ -35,7 +35,36 @@
             </table>
         </div>
     </div>
+    <!-- Last Visit Comments / Note  Section -->
+    <div class="card mb-4">
+        <div class="card-header bg-purple text-white">
+            <h4>Last Visit Comments / Note</h4>
+        </div>
+        <div class="card-body">
+            @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+            @endif
 
+
+            <table class="table">
+                <tr>
+                <td>
+    <strong>Next Review Date</strong> 
+    <input type="text" id="nextReviewDate" name="ip_op" class="form-control" readonly>
+</td>
+
+                    <td><strong>Comment / Note </strong> <input type="text" name="comment" value="GENERAL REVIEW." readonly class="form-control"></td>
+                </tr>
+
+
+            </table>
+        </div>
+   
+        </form>
+
+    </div>
 
     <!-- Admission Section -->
     <div class="card mb-4">
@@ -199,6 +228,25 @@
             }
         });
     });
+    function getRandomDate() {
+        let today = new Date();
+        let currentYear = today.getFullYear();
+        let targetYear = 2025;
+
+        let startDate = new Date(today);
+        startDate.setFullYear(targetYear, today.getMonth(), today.getDate()); 
+
+        let endDate = new Date(targetYear, 11, 31); 
+
+        let randomTime = Math.floor(Math.random() * (endDate.getTime() - startDate.getTime())) + startDate.getTime();
+        let randomDate = new Date(randomTime);
+
+        let formattedDate = randomDate.toISOString().split('T')[0]; 
+        document.getElementById("nextReviewDate").value = formattedDate;
+    }
+
+    window.onload = getRandomDate;
+
 </script>
 
 @endsection

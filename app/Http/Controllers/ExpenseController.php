@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Expenses;
+use App\Models\ExpensesMaster;
 use Illuminate\Http\Request;
 
 class ExpenseController extends Controller
@@ -10,15 +11,48 @@ class ExpenseController extends Controller
     public function expensesView()
     {
         $expenses = Expenses::all();
+        $expensesMasters = ExpensesMaster::all();
 
-        return view('expenses.index', compact('expenses'));
+        return view('expenses.index', compact('expenses','expensesMasters'));
+    }
+
+    public function expensesMasterIndex()
+    {
+        $expensesMasters = ExpensesMaster::all();
+
+        return view('expenses.masterIndex', compact('expensesMasters'));
+    }
+    public function expensesMasterEdit($id)
+    {
+        $expenseMaster = ExpensesMaster::findOrFail($id);
+        return view('expenses.editMaster', compact('expenseMaster'));
     }
 
     public function expensesCreate()
     {
         return view('expenses.create');
     }
+    public function expensesMaster()
+    {
 
+        return view('expenses.addMaster');
+    }
+
+    public function expensesMasterStore(Request $request)
+    {
+        $request->validate([
+            'expenses_detail' => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ]);
+        $expense = ExpensesMaster::updateOrCreate(
+            ['id' => $request->expensesMaster_id], 
+            [
+                'expenses_detail' => $request->expenses_detail,
+                'description' => $request->description,
+            ]
+        );
+        return  redirect()->route('expensesMasterIndex');
+    }
     public function expensesStore(Request $request)
     {
         // Validate the request

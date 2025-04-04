@@ -96,13 +96,18 @@ Route::get('/expensesView', [ExpenseController::class, 'expensesView'])
     ->name('expensesView');
 Route::get('/expensesCreate', [ExpenseController::class, 'expensesCreate'])
     ->name('expensesCreate');
+    Route::get('/expensesMaster', [ExpenseController::class, 'expensesMaster'])
+    ->name('expensesMaster');
 
 Route::post('expensesStore', [ExpenseController::class, 'expensesStore'])
     ->name('expensesStore');
 Route::get('expensesEdit/{id}', [ExpenseController::class, 'expensesEdit'])->name('expensesEdit');
 Route::post('expensesDelete', [ExpenseController::class, 'expensesDelete'])
     ->name('expensesDelete');
-
+    Route::post('expensesMasterStore', [ExpenseController::class, 'expensesMasterStore'])
+    ->name('expensesMasterStore');
+    Route::get('expensesMasterIndex', [ExpenseController::class, 'expensesMasterIndex'])->name('expensesMasterIndex');
+    Route::get('expensesMasterEdit/{id}', [ExpenseController::class, 'expensesMasterEdit'])->name('expensesMasterEdit');
 
 
 

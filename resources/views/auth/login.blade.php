@@ -5,7 +5,8 @@
 @section('custom-css', 'auth/login.css')
 
 @section('content')
-<div class="container-fluid d-flex align-items-center justify-content-center vw-100 vh-100 bg-info-subtle bg-gradient">
+<div class="container-fluid d-flex align-items-center justify-content-center vw-100 vh-100   hospital-bg">
+
     <div class="card shadow-sm border-0">
         <div class="card-body p-4">
             <div class=" d-flex align-items-center justify-content-center w-100 pb-3 " id="logo">

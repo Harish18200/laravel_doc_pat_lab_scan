@@ -111,7 +111,8 @@
     <!-- Buttons -->
     <div class="mt-3 text-center">
         <button type="submit" class="btn btn-success">Update Patient</button>
-        <a href="{{ route('PatientList') }}" class="btn btn-secondary">Cancel</a>
+        <a href="{{ url()->previous() }}" class="btn btn-secondary">Cancel</a>
+
     </div>
 </form>
 </div>

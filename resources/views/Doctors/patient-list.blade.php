@@ -34,6 +34,8 @@
             <td>{{ \Carbon\Carbon::parse($patient->dob)->diffInYears(\Carbon\Carbon::create(2025, 1, 1)) }} </td>
             <td>{{ $patient->gender }}</td>
             <td>
+            <a href="{{ route('PatientDetails', $patient->id) }}" class="btn btn-warning btn-sm">View</a>
+
                 <a href="{{ route('patients.edit', $patient->id) }}" class="btn btn-primary btn-sm">Edit</a>
                 <form action="{{ route('patients.destroy', $patient->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure?');">
                     @csrf
