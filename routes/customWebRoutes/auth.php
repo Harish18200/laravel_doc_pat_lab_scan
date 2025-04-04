@@ -87,6 +87,9 @@ Route::get('/patients/{id}/edit', [DoctorController::class, 'edit'])->name('pati
 Route::delete('/patients/{id}', [DoctorController::class, 'destroy'])->name('patients.destroy');
 Route::get('/appointment/{id}/approval', [DoctorController::class, 'approvalAppointment'])->name('appointment.approval');
 Route::get('/PatientDetails/{id}', [DoctorController::class, 'PatientDetails'])->name('PatientDetails');
+Route::get('/searchPatientDetails/{id}', [DoctorController::class, 'searchPatientDetails'])->name('searchPatientDetails');
+Route::get('/schedulePatient/{id}', [DoctorController::class, 'schedulePatient'])->name('schedulePatient');
+
 Route::get('viewAppointment', [DoctorController::class, 'viewAppointment'])->name('viewAppointment');
 Route::get('diseasesView', [DiseaseController::class, 'diseasesView'])->name('diseasesView');
 Route::get('promptSearch', [DiseaseController::class, 'promptSearch'])->name('promptSearch');
@@ -106,6 +109,8 @@ Route::post('expensesDelete', [ExpenseController::class, 'expensesDelete'])
     ->name('expensesDelete');
     Route::post('expensesMasterStore', [ExpenseController::class, 'expensesMasterStore'])
     ->name('expensesMasterStore');
+    Route::post('expensesMaterDelete', [ExpenseController::class, 'expensesMaterDelete'])
+    ->name('expensesMaterDelete');
     Route::get('expensesMasterIndex', [ExpenseController::class, 'expensesMasterIndex'])->name('expensesMasterIndex');
     Route::get('expensesMasterEdit/{id}', [ExpenseController::class, 'expensesMasterEdit'])->name('expensesMasterEdit');
 

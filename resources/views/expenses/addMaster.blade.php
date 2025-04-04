@@ -9,10 +9,10 @@
             <label>Expense Details</label>
             <input type="text" name="expenses_detail" class="form-control" required>
         </div>
-        <div class="mb-3">
-            <label>description</label>
-            <input type="text" name="description" class="form-control">
-        </div>
+
+        
+            <input hidden value="Sample" type="text" name="description" class="form-control">
+  
 
         <button type="submit" class="btn btn-success">Save</button>
         <a href="{{ route('expensesMasterIndex') }}" class="btn btn-secondary">Cancel</a>

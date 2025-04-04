@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h2>Expenses List</h2>    <a href="{{ route('expensesView') }}" class="btn btn-secondary">Back</a>
+    <h2>Expenses List</h2> <a href="{{ route('expensesView') }}" class="btn btn-secondary">Back</a>
 
     <div class="d-flex justify-content-end gap-2">
 
@@ -17,21 +17,22 @@
     <table class="table table-bordered">
         <thead>
             <tr>
+                <th>Id</th>
                 <th>Expenses Details </th>
-                <th>Description</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             @forelse($expensesMasters as $master)
             <tr>
+                <td>{{ $master->id }}</td>
                 <td>{{ $master->expenses_detail }}</td>
-                <td>{{ $master->description ?? 'Null' }}</td>
+
                 <td>
                     <a href="{{ route('expensesMasterEdit', $master->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                    <form action="{{ route('expensesDelete') }}" method="POST" class="d-inline">
+                    <form action="{{ route('expensesMaterDelete') }}" method="POST" class="d-inline">
                         @csrf
-                        <input hidden type="number" name="expenses_id" class="form-control" value="{{$master->id}}">
+                        <input hidden type="number" name="expensesMaster_id" class="form-control" value="{{$master->id}}">
 
                         <button class="btn btn-danger btn-sm" onclick="return confirm('Delete this expenseMaster?')">Delete</button>
                     </form>

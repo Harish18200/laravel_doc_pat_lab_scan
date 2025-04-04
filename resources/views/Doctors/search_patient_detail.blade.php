@@ -82,17 +82,14 @@
                 <table class="table">
                     <tr>
                         <input hidden type="text" name="patient_id" value="{{ $patients->id }}" class="form-control">
-                        <td>
-                            <strong>Primary Consultant:</strong>
-                            <select name="consultant" class="form-control">
-                                @foreach ($doctorLists as $doctor)
-                                <option value="{{ $doctor->id }}"
-                                    @if ($doctor->id == session('user_id')) selected @endif>
-                                    {{ $doctor->name }}
-                                </option>
-                                @endforeach
-                            </select>
-                        </td>
+                        <select name="consultant" class="form-control">
+                            @foreach ($doctorLists as $doctor)
+                            <option value="{{ $doctor->id }}"
+                                @if ($doctor->id == session('user_id')) selected @endif>
+                                {{ $doctor->name }}
+                            </option>
+                            @endforeach
+                        </select>
                         <td><strong>Admission Date & Time:</strong> <input type="datetime-local" name="admission_date" class="form-control"></td>
                         <td><strong>Discharge Date & Time:</strong> <input type="datetime-local" name="discharge_date" class="form-control"></td>
                     </tr>
@@ -113,9 +110,7 @@
 
                 </table>
         </div>
-        <div class="text-end">
-            <button type="submit" class="btn btn-success btn-md">Submit</button>
-        </div>
+
         </form>
 
     </div>
@@ -154,56 +149,11 @@
                         <td><strong>GRBS:</strong> <input type="text" name="grbs" class="form-control"></td>
                     </tr>
             </table>
-            <div class="text-end">
-                <button type="submit" class="btn btn-success btn-md">Submit</button>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- Note Section -->
-    <div class="card mb-4">
-        <div class="card-header bg-purple text-white">
-            <h4>Histroy</h4>
-        </div>
-        <div class="card-body">
-            <table class="table">
-                @if(session('StoreMessage'))
-                <div class="alert alert-success">
-                    {{ session('StoreMessage') }}
-                </div>
-                @endif
-                @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                @endif
-                <form action="{{route('patientDiseaseStore')}}" method="POST">
-                    @csrf
-                    <td>
-                        <input hidden type="text" name="patient_id" value="{{ $patients->id }}" class="form-control">
-                        <strong>Symptoms</strong>
-                        <input type="text" name="symptoms" id="symptoms" class="form-control">
-                        @error('symptoms')
-                        <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </td>
-                    <td>
-                        <strong>Disease:</strong>
-                        <input readonly type="text" name="disease" id="disease" class="form-control">
-                    </td>
-                    @error('disease')
-                    <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                    </tr>
-            </table>
+
         </div>
     </div>
     <div class="text-end">
-        <button type="submit" class="btn btn-success btn-md">Submit</button>
+        <button type="button" class="btn btn-success btn-md">Make Appointment</button>
         </form>
     </div>
 </div>

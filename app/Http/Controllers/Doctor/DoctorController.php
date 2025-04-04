@@ -26,7 +26,21 @@ class DoctorController extends Controller
     public function PatientDetails($id)
     {
         $patients = Patient::where('id', $id)->first();
-        return view('Doctors.PatientDetails', compact('patients'));
+        $doctorLists = Doctor::get();
+        return view('Doctors.PatientDetails', compact('patients','doctorLists'));
+    }
+    public function searchPatientDetails($id)
+    {
+        $patients = Patient::where('id', $id)->first();
+        $doctorLists = Doctor::get();
+        return view('Doctors.search_patient_detail', compact('patients','doctorLists'));
+    }
+
+    public function schedulePatient($id)
+    {
+        $patients = Patient::where('id', $id)->first();
+     
+        return view('Doctors.schedule_patient', compact('patients'));
     }
 
     public function viewAppointment()
@@ -39,9 +53,9 @@ class DoctorController extends Controller
 
     public function patientStore(Request $request)
     {
-      
+
         $patientId = isset($request->patientId) ? $request->patientId : null;
-  
+
 
         if ($patientId) {
             $model = Patient::findOrFail($patientId);
@@ -51,18 +65,18 @@ class DoctorController extends Controller
             $message = "Patient added successfully.";
         }
 
-        $model->patient_name = $request->patient_name?? null;
-        $model->email = $request->email?? null;
-        $model->mobile = $request->contact_no?? null;
-        $model->gender = $request->gender?? null;
+        $model->patient_name = $request->patient_name ?? null;
+        $model->email = $request->email ?? null;
+        $model->mobile = $request->contact_no ?? null;
+        $model->gender = $request->gender ?? null;
         $model->address = $request->address ?? null;
         $model->dob = $request->dob ?? null;
-        $model->martial_status = $request->marital_status?? null;
-        $model->alternate_no = $request->alternate_no?? null;
-        $model->caregiver_name = $request->caregiver_name?? null;
-        $model->relationship = $request->relationship?? null;
-        $model->remarks = $request->remark?? null;
-        $model->refferred_by = $request->referred_by?? null;
+        $model->martial_status = $request->marital_status ?? null;
+        $model->alternate_no = $request->alternate_no ?? null;
+        $model->caregiver_name = $request->caregiver_name ?? null;
+        $model->relationship = $request->relationship ?? null;
+        $model->remarks = $request->remark ?? null;
+        $model->refferred_by = $request->referred_by ?? null;
 
 
 

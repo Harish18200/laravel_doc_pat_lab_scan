@@ -100,4 +100,13 @@ class ExpenseController extends Controller
         }
         return redirect()->route('expensesView')->with('error', 'Expenses not found!');
     }
+    public function expensesMaterDelete(Request $request)
+    {
+        $expenses =  ExpensesMaster::find($request->expensesMaster_id);
+        if ($expenses) {
+            $expenses->delete();
+            return redirect()->route('expensesMasterIndex')->with('success', 'Expenses deleted successfully.');
+        }
+        return redirect()->route('expensesMasterIndex')->with('error', 'Expenses not found!');
+    }
 }
