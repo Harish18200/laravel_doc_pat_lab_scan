@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ExpenseReportMail;
 use App\Models\Expenses;
 use App\Models\ExpensesMaster;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Mail;
 
 class ExpenseController extends Controller
 {
@@ -13,8 +16,16 @@ class ExpenseController extends Controller
         $expenses = Expenses::all();
         $expensesMasters = ExpensesMaster::all();
 
-        return view('expenses.index', compact('expenses','expensesMasters'));
+        return view('expenses.index', compact('expenses', 'expensesMasters'));
     }
+    public function ReportView()
+    {
+
+
+        return view('expenses.reportView');
+    }
+
+
 
     public function expensesMasterIndex()
     {
@@ -45,7 +56,7 @@ class ExpenseController extends Controller
             'description' => 'nullable|string',
         ]);
         $expense = ExpensesMaster::updateOrCreate(
-            ['id' => $request->expensesMaster_id], 
+            ['id' => $request->expensesMaster_id],
             [
                 'expenses_detail' => $request->expenses_detail,
                 'description' => $request->description,
@@ -109,4 +120,37 @@ class ExpenseController extends Controller
         }
         return redirect()->route('expensesMasterIndex')->with('error', 'Expenses not found!');
     }
+
+    public function generatePdf(Request $request)
+    {
+        $expenses = Expenses::where('date', $request->reportDate)->first();
+        if (!$expenses) {
+            return redirect()->back()->with('error', 'No expenses found for the selected date.');
+        }
+        $pdf = Pdf::loadView('expenses.expense_report', [
+            'expense' => $expenses->toArray(),
+            'date' => $request->reportDate
+        ]);
+        Mail::to('dummydevil1000@gmail.com')->send(new ExpenseReportMail($pdf, $request->reportDate, $expenses));
+    
+        return back()->with('success', 'Expense report sent to mail successfully!');
+    }
+    
+
+    // public function generatePdf(Request $request)
+    // {
+    //     $expenses = Expenses::where('date', $request->reportDate)->first();
+
+    //     if (!$expenses) {
+    //         return redirect()->back()->with('error', 'No expenses found for the selected date.');
+    //     }
+
+    //     $pdf = Pdf::loadView('expenses.expense_report', [
+    //         'expense' => $expenses->toArray(),
+    //         'date' => $request->reportDate
+    //     ]);
+
+    //     return $pdf->download('Expense_Report_' . $request->reportDate . '.pdf');
+    // }
+
 }

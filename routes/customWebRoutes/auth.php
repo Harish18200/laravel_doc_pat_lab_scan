@@ -97,6 +97,9 @@ Route::get('dashboard', [DiseaseController::class, 'dashboard'])->name('dashboar
 
 Route::get('/expensesView', [ExpenseController::class, 'expensesView'])
     ->name('expensesView');
+    Route::get('/ReportView', [ExpenseController::class, 'ReportView'])
+    ->name('ReportView');
+
 Route::get('/expensesCreate', [ExpenseController::class, 'expensesCreate'])
     ->name('expensesCreate');
     Route::get('/expensesMaster', [ExpenseController::class, 'expensesMaster'])
@@ -109,6 +112,8 @@ Route::post('expensesDelete', [ExpenseController::class, 'expensesDelete'])
     ->name('expensesDelete');
     Route::post('expensesMasterStore', [ExpenseController::class, 'expensesMasterStore'])
     ->name('expensesMasterStore');
+    Route::post('generatePdf', [ExpenseController::class, 'generatePdf'])
+    ->name('generatePdf');
     Route::post('expensesMaterDelete', [ExpenseController::class, 'expensesMaterDelete'])
     ->name('expensesMaterDelete');
     Route::get('expensesMasterIndex', [ExpenseController::class, 'expensesMasterIndex'])->name('expensesMasterIndex');

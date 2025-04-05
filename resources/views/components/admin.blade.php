@@ -21,6 +21,9 @@
             <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() === 'dashboard.import.nsapScheme.show' ? 'fw-bold text-white' : '' }}" href="{{route('expensesView')}}">Expenses</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link {{ Route::currentRouteName() === 'dashboard.import.nsapScheme.show' ? 'fw-bold text-white' : '' }}" href="{{route('ReportView')}}">Report</a>
+            </li>
 
 
 
