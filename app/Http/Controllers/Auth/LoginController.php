@@ -14,18 +14,23 @@ use App\Models\Lab;
 use App\Models\Pharma;
 use App\Models\ScanDoctor;
 use App\Models\User;
+use Faker\Factory as Faker;
+use Illuminate\Support\Facades\DB;
 
 class LoginController extends Controller
 {
     public function index()
     {
+  
+
+
         $userTypes = UserType::all();
         return view('auth.login', compact('userTypes'));
     }
 
     public function authenticate(Request $request)
     {
-       
+
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required',
@@ -41,75 +46,80 @@ class LoginController extends Controller
 
         $user = null;
 
-        switch ($request->user_type) {  
+        switch ($request->user_type) {
             case 1:
-            $user = User::where('email', $request->email)->first();
-      
-            $viewId = 6;
-            $route ='expensesView';
-            session([
-                'user_id' => $user->id,
-                'user_name' => $user->name,
-            ]);
-            break;
+                $user = User::where('email', $request->email)->first();
+                if ($user) {
+                    $viewId = 6;
+                    $route = 'expensesView';
+                    session([
+                        'user_id' => $user->id,
+                        'user_name' => $user->name,
+                    ]);
+                    break;
+                }
+
             case 2:
                 $user = Doctor::where('email', $request->email)->first();
-                $viewId = 1;
-                $route ='dashboard';
-                session([
-                    'user_id' => $user->id,
-                    'user_name' => $user->name,
-                ]);
-                break;
+                if ($user) {
+                    $viewId = 1;
+                    $route = 'dashboard';
+                    session([
+                        'user_id' => $user->id,
+                        'user_name' => $user->name,
+                    ]);
+                    break;
+                }
             case 3:
                 $user = Patient::where('email', $request->email)->first();
-                $viewId = 2;
-                $route ='home';
-                session([
-                    'user_id' => $user->id,
-                    'user_name' => $user->patient_name,
-                ]);
-                break;
+                if ($user) {
+                    $viewId = 2;
+                    $route = 'home';
+                    session([
+                        'user_id' => $user->id,
+                        'user_name' => $user->patient_name,
+                    ]);
+                    break;
+                }
             case 4:
                 $user = Lab::where('email', $request->email)->first();
-                $viewId = 3;
-                $route ='LabView';
-                session([
-                    'user_id' => $user->id,
-                    'user_name' => $user->name,
-                ]);
-                break;
+                if ($user) {
+                    $viewId = 3;
+                    $route = 'LabView';
+                    session([
+                        'user_id' => $user->id,
+                        'user_name' => $user->name,
+                    ]);
+                    break;
+                }
             case 5:
                 $user = Pharma::where('email', $request->email)->first();
+                if ($user) {
 
-                $viewId = 4;
-                $route ='pharmaView';
-                session([
-                    'user_id' => $user->id,
-                    'user_name' => $user->name,
-                ]);
-                break;
+                    $viewId = 4;
+                    $route = 'pharmaView';
+                    session([
+                        'user_id' => $user->id,
+                        'user_name' => $user->name,
+                    ]);
+                    break;
+                }
             case 6:
                 $user = ScanDoctor::where('email', $request->email)->first();
-                $viewId = 5;
-                $route ='scanInvoiceView';
-                session([
-                    'user_id' => $user->id,
-                    'user_name' => $user->name,
-                ]);
-                break;
+                if ($user) {
+                    $viewId = 5;
+                    $route = 'scanInvoiceView';
+                    session([
+                        'user_id' => $user->id,
+                        'user_name' => $user->name,
+                    ]);
+                    break;
+                }
             default:
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Invalid user type'
-                ], 400);
+            return redirect()->route('auth.login')->with('error', 'Invalid Crenditals');
         }
-
         if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Invalid email or password'
-            ], 401);
+            return redirect()->route('auth.login')->with('error', 'Invalid Email or Password');
         }
         session()->put('viewId', $viewId);
         return  redirect()->route($route);

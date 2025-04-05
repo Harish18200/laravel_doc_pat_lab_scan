@@ -14,6 +14,11 @@
             </div>
             <form method="POST" action="{{ route('auth.login.submit') }}">
                 @csrf
+                @if(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+                @endif
                 <div class="mb-3">
                     <label for="user_type" class="form-label">User Type</label>
                     <select class="form-select" id="user_type" name="user_type" required>

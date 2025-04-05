@@ -163,7 +163,7 @@
     <!-- Note Section -->
     <div class="card mb-4">
         <div class="card-header bg-purple text-white">
-            <h4>Histroy</h4>
+            <h4>History</h4>
         </div>
         <div class="card-body">
             <table class="table">
