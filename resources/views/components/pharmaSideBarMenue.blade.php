@@ -22,13 +22,11 @@
             </li>
 
 
-
-
-
-
-
             <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() === 'dashboard.import.users.show' ? 'fw-bold text-white' : '' }}" href="{{route('pharmaView')}}">Pharma</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ Route::currentRouteName() === 'dashboard.import.nsapScheme.show' ? 'fw-bold text-white' : '' }}" href="{{route('medicinePurchase')}}">Medicine Purchase</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() === 'dashboard.import.nsapScheme.show' ? 'fw-bold text-white' : '' }}" href="{{route('userView')}}">User Management</a>

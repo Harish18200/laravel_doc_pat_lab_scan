@@ -101,6 +101,8 @@ Route::get('/expensesView', [ExpenseController::class, 'expensesView'])
     ->name('expensesView');
     Route::get('/ReportView', [ExpenseController::class, 'ReportView'])
     ->name('ReportView');
+    Route::get('/medicinePurchase', [ExpenseController::class, 'medicinePurchase'])
+    ->name('medicinePurchase');
 
 Route::get('/expensesCreate', [ExpenseController::class, 'expensesCreate'])
     ->name('expensesCreate');

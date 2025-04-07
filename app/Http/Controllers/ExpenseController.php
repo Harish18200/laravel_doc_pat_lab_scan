@@ -24,7 +24,12 @@ class ExpenseController extends Controller
 
         return view('expenses.reportView');
     }
+    public function medicinePurchase()
+    {
 
+      
+        return view('expenses.medicinePurchase');
+    }
 
 
     public function expensesMasterIndex()
@@ -66,7 +71,7 @@ class ExpenseController extends Controller
     }
     public function expensesStore(Request $request)
     {
-        
+
         $validatedData = $request->validate([
             'date' => 'required|date',
             'ebbill' => 'nullable|numeric',
@@ -93,7 +98,7 @@ class ExpenseController extends Controller
             'bio_waste' => 'nullable|numeric',
             'autitor' => 'nullable|numeric',
         ]);
-        
+
 
         if ($request->filled('expenses_id')) {
             $expense = Expenses::findOrFail($request->expenses_id); // Find the record
