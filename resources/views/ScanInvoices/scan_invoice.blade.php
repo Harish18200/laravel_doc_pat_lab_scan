@@ -86,12 +86,10 @@
             <tr>
                 <th>Invoice Date</th>
                 @php
-                $randomMonth = rand(1, 12);
-                $randomDay = rand(1, cal_days_in_month(CAL_GREGORIAN, $randomMonth, 2025));
-                $randomDate = \Carbon\Carbon::create(2025, $randomMonth, $randomDay)->format('d - F - Y');
+                $currentDate = \Carbon\Carbon::now()->format('d - F - Y');
                 @endphp
 
-                <td>{{ $randomDate }}</td>
+                <td>{{ $currentDate }}</td>
                 <th>Invoice Number</th>
                 @php
                 $Month = rand(1, 12);
@@ -120,7 +118,7 @@
                 $randomAmount = -1 * rand(100, 5000); // Generates -100 to -5000
                 @endphp
 
-               
+
                 <tr>
                     <td>SCAN (3) AND ECHO (0) AND PoC (0)</td>
                     <td>{{ $randomAmount }}</td>
