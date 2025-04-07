@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>Tax Invoice</title>
@@ -10,9 +11,12 @@
             margin: 40px;
             color: #000;
         }
-        .header, .footer {
+
+        .header,
+        .footer {
             text-align: center;
         }
+
         .title {
             font-size: 20px;
             font-weight: bold;
@@ -20,58 +24,81 @@
             text-align: center;
             text-transform: uppercase;
         }
+
         .section {
             margin-bottom: 20px;
         }
+
         .section h4 {
             margin-bottom: 5px;
             font-weight: bold;
         }
-        .table, .details-table {
+
+        .table,
+        .details-table {
             width: 100%;
             border-collapse: collapse;
         }
-        .table th, .table td, .details-table th, .details-table td {
+
+        .table th,
+        .table td,
+        .details-table th,
+        .details-table td {
             border: 1px solid #000;
             padding: 6px;
             text-align: left;
         }
+
         .details-table th {
             background-color: #f0f0f0;
         }
+
         .signature {
             margin-top: 40px;
         }
+
         .signature p {
             margin-bottom: 3px;
         }
     </style>
 </head>
+
 <body>
 
     <div class="header">
         <div class="title">TAX INVOICE</div>
         <p><strong>SCAN ME RADIOLOGY</strong><br>
-        No. 51 Albert Street<br>
-        Windsor Gardens<br>
-        South Australia - 5087</p>
+            No. 51 Albert Street<br>
+            Windsor Gardens<br>
+            South Australia - 5087</p>
     </div>
 
     <div class="section">
         <h4>Billed To:</h4>
         <p><strong>SCAN ME RADIOLOGY LIMITED</strong><br>
-        Klinik Mediviron (Jalan Tun Sambanthan)<br>
-        17, Jalan Tun Sambanthan 7, 50470 WP Kuala Lumpur,<br>
-        Malaysia</p>
+            Klinik Mediviron (Jalan Tun Sambanthan)<br>
+            17, Jalan Tun Sambanthan 7, 50470 WP Kuala Lumpur,<br>
+            Malaysia</p>
     </div>
 
     <div class="section">
         <table class="details-table">
             <tr>
                 <th>Invoice Date</th>
-                <td>01 - April - 2025</td>
+                @php
+                $randomMonth = rand(1, 12);
+                $randomDay = rand(1, cal_days_in_month(CAL_GREGORIAN, $randomMonth, 2025));
+                $randomDate = \Carbon\Carbon::create(2025, $randomMonth, $randomDay)->format('d - F - Y');
+                @endphp
+
+                <td>{{ $randomDate }}</td>
                 <th>Invoice Number</th>
-                <td>SMR/03/2025-2026</td>
+                @php
+                $Month = rand(1, 12);
+                $Day = rand(1, cal_days_in_month(CAL_GREGORIAN, $Month, 2025));
+                $Date = \Carbon\Carbon::create(2025, $Month, $Day)->format('d - F - Y');
+                @endphp
+                <td>SMR{{ $Date }} </td>
             </tr>
             <tr>
                 <th>Invoice Period</th>
@@ -89,17 +116,26 @@
                 </tr>
             </thead>
             <tbody>
+                @php
+                $randomAmount = -1 * rand(100, 5000); // Generates -100 to -5000
+                @endphp
+
+               
                 <tr>
                     <td>SCAN (3) AND ECHO (0) AND PoC (0)</td>
-                    <td>-1000</td>
+                    <td>{{ $randomAmount }}</td>
                 </tr>
                 <tr>
                     <td>TAX in Australia</td>
                     <td>NIL</td>
                 </tr>
+                @php
+                $Amount = -1 * rand(100, 5000); // Generates -100 to -5000
+                @endphp
+
                 <tr>
                     <th>TOTAL</th>
-                    <th>-1000</th>
+                    <td>{{ $Amount }}</td>
                 </tr>
             </tbody>
         </table>
@@ -135,4 +171,5 @@
     </div>
 
 </body>
+
 </html>
