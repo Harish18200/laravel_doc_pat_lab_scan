@@ -11,7 +11,7 @@
 
         <div class="mb-3">
             <label class="form-label">Patient</label>
-            <input type="text" class="form-control" value="{{ $appointments->patientName ?? '' }}" readonly>
+            <input type="text" class="form-control" value="{{ $appointments->patientName ?? '' }}" >
             <input type="hidden" name="patient_id" value="{{ $appointments->id }}">
         </div>
 

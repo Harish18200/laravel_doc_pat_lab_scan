@@ -5,7 +5,7 @@
         </div>
         <div id="loginUserInfo">
             <h6 id="name"></h6>
-            <p id="role">Welcome, {{ session('user_name') }}</p>
+            <p id="role">Welcome</p>
         </div>
     </div>
     <nav class="menu">
