@@ -11,22 +11,23 @@
 
         <div class="mb-3">
             <label class="form-label">Patient</label>
-            <input type="text" class="form-control" value="{{ $appointments->patientName ?? '' }}" >
+            <input type="text" class="form-control" value="{{ $appointments->patientName ?? '' }}">
             <input type="hidden" name="patient_id" value="{{ $appointments->id }}">
         </div>
 
         <div class="mb-3">
-                <label class="form-label">Doctor</label>
-                <select name="doctor_id" class="form-control">
-                    <option value="">Select Doctor</option>
-                    @foreach($doctors as $doctor)
-                    <option value="{{ $doctor->id }}"
-                        {{ old('doctor_id') == $doctor->id ? 'selected' : '' }}>
-                        Dr. {{ $doctor->name }}
-                    </option>
-                    @endforeach
-                </select>
-            </div>
+            <label class="form-label">Doctor</label>
+            <select name="doctor_id" class="form-control">
+                <option value="">Select Doctor</option>
+                @foreach($doctors as $doctor)
+                <option value="{{ $doctor->id }}"
+                    {{ (old('doctor_id', $appointments->doctor_id ?? '') == $doctor->id) ? 'selected' : '' }}>
+                    Dr. {{ $doctor->name }}
+                </option>
+                @endforeach
+            </select>
+
+        </div>
 
         <div class="mb-3">
             <label class="form-label">Problem</label>
@@ -43,7 +44,7 @@
             <input type="time" name="appointment_time" class="form-control" value="{{ $appointments->appointment_time }}" readonly>
         </div>
 
-        
+
         <a href="{{ route('patientMakeAppointment') }}" class="btn btn-primary ">Back</a>
 
     </div>

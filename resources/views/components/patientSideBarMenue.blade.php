@@ -48,6 +48,9 @@
 <li class="nav-item">
     <a class="nav-link {{ Route::currentRouteName() === 'dashboard.user.view' ? 'fw-bold text-white' : '' }}" href="{{ route('patientMakeAppointment') }}">Make Appointment</a>
 </li>
+<li class="nav-item">
+    <a class="nav-link {{ Route::currentRouteName() === 'dashboard.user.view' ? 'fw-bold text-white' : '' }}" href="{{ route('reviewSchedule') }}">Review schedules</a>
+</li>
 
            
 

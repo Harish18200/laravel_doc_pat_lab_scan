@@ -30,6 +30,8 @@ Route::get('/home', [PatientController::class, 'home'])
     ->name('home');
 Route::get('/aboutUs', [PatientController::class, 'aboutUs'])
     ->name('aboutUs');
+    Route::get('/reviewSchedule', [PatientController::class, 'reviewSchedule'])
+    ->name('reviewSchedule');
 
 Route::get('/LabView', [LabController::class, 'LabView'])
     ->name('LabView');

@@ -17,7 +17,7 @@ class PatientController extends Controller
     public function patientMakeAppointment()
     {
         $user_id = session('user_id');
-        $appointments = Appointment::where('patient_id', $user_id)->get();
+        $appointments = Appointment::with('doctor')->where('patient_id', $user_id)->get();
         return view('Patients.add_appointment', compact('appointments'));
     }
     public function editAppointments($id)
@@ -72,6 +72,33 @@ class PatientController extends Controller
 
         return view('Patients.aboutUs');
     }
+
+    public function reviewSchedule()
+    {
+        $user_id = session('user_id');
+
+        $appointments = Appointment::where('patient_id', $user_id)
+            ->where('appointment_status', 1)
+            ->first();
+
+        $randomDate = null;
+
+        if ($appointments) {
+            do {
+                $randomMonth = rand(1, 12);
+                $randomDay = rand(1, 28);
+                $randomDate = \Carbon\Carbon::create(2025, $randomMonth, $randomDay);
+            } while ($randomDate->isPast());
+        }
+
+        return view('Patients.reviewSchedule', [
+            'appointments' => $appointments,
+            'nextReviewDate' => $randomDate ? $randomDate->format('Y-m-d') : null
+        ]);
+    }
+
+
+
 
     public function  admissionStore(Request $request)
     {
@@ -134,6 +161,7 @@ class PatientController extends Controller
 
     public function  patientDiseaseStore(Request $request)
     {
+    
         $request->validate([
             'patient_id' => 'required',
             'symptoms'   => 'required|string',

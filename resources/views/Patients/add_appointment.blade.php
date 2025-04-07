@@ -23,11 +23,12 @@
                 @foreach ($appointments as $appointment)
                 <tr>
                     <td>{{ $appointment->patientName }}</td>
-                    <td>{{ $appointment->doctor_id }}</td>
+                    <td>{{ $appointment->doctor->name ?? 'Not Assigned' }}</td>
                     <td>{{ $appointment->problem ?? 'N/A' }}</td>
                     <td>{{ $appointment->appointment_date }}</td>
                     <td>{{ $appointment->appointment_time }}</td>
-                    <td>{{ ucfirst($appointment->appointment_status) }}</td>
+                    <td>{{ ucfirst($appointment->appointment_status == 1 ? 'approved' : 'pending') }}</td>
+
                     <td>
 
                         <a href="{{ route('editAppointments', $appointment->id) }}" class="btn btn-warning btn-sm">View</a>

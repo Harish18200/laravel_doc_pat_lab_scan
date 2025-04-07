@@ -75,15 +75,43 @@ class DiseaseController extends Controller
     }
 
     public function getDisease(Request $request)
-    {
-        $symptom = $request->symptom;
+{
+    $symptomInput = $request->symptom;
 
-        $disease = Disease::where('symptoms', $symptom)->first();
+    $symptomsArray = array_map('trim', explode(',', $symptomInput));
 
-        if ($disease) {
-            return response()->json(['disease' => $disease->diseases]);
-        } else {
-            return response()->json(['disease' => 'No matching disease found']);
+    $diseases = Disease::where(function($query) use ($symptomsArray) {
+        foreach ($symptomsArray as $symptom) {
+            $query->orWhere('symptoms', 'LIKE', "%$symptom%");
         }
+    })->pluck('diseases')->toArray();
+
+    if (!empty($diseases)) {
+        $uniqueDiseases = collect($diseases)
+            ->flatMap(function ($item) {
+                return array_map('trim', explode(',', $item));
+            })
+            ->unique()
+            ->values()
+            ->implode(', ');
+
+        return response()->json(['disease' => $uniqueDiseases]);
+    } else {
+        return response()->json(['disease' => 'No matching disease found']);
     }
+}
+
+
+    // public function getDisease(Request $request)
+    // {
+    //     $symptom = $request->symptom;
+
+    //     $disease = Disease::where('symptoms', $symptom)->first();
+
+    //     if ($disease) {
+    //         return response()->json(['disease' => $disease->diseases]);
+    //     } else {
+    //         return response()->json(['disease' => 'No matching disease found']);
+    //     }
+    // }
 }
