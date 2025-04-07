@@ -26,6 +26,10 @@
                 <input type="number" name="salary" class="form-control">
             </div>
             <div class="mb-3">
+                <label>phone Bill</label>
+                <input type="number" name="phone_bill" class="form-control">
+            </div>
+            <div class="mb-3">
                 <label>Tv</label>
                 <input type="number" name="tv" class="form-control">
             </div>
@@ -37,6 +41,29 @@
                 <label>Food</label>
                 <input type="number" name="food" class="form-control">
             </div>
+            <div class="mb-3">
+                <label>Amazon</label>
+                <input type="number" name="amazon" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label>Out Side Lab</label>
+                <input type="number" name="out_side_lab" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label>Medicine Company</label>
+                <input type="number" name="medicine_company" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label>LAUNDRY</label>
+                <input type="number" name="laundry" class="form-control">
+            </div>
+            
+            <div class="mb-3">
+                <label>Car</label>
+                <input type="number" name="car" class="form-control">
+            </div>
+            
+
         </div>
 
         <!-- Right Column -->
@@ -61,6 +88,35 @@
                 <label>Milk</label>
                 <input type="number" name="milk" class="form-control">
             </div>
+            <div class="mb-3">
+                <label>Flower</label>
+                <input type="number" name="flower" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label>manju</label>
+                <input type="number" name="manju" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label>Courier</label>
+                <input type="number" name="courier" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label>desil</label>
+                <input type="number" name="desil" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label>Bio Waste</label>
+                <input type="number" name="bio_waste" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label>Autitor</label>
+                <input type="number" name="autitor" class="form-control">
+            </div>
+       
         </div>
     </div>
 

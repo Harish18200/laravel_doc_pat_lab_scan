@@ -66,7 +66,7 @@ class ExpenseController extends Controller
     }
     public function expensesStore(Request $request)
     {
-        // Validate the request
+        
         $validatedData = $request->validate([
             'date' => 'required|date',
             'ebbill' => 'nullable|numeric',
@@ -77,11 +77,23 @@ class ExpenseController extends Controller
             'phone_bill' => 'nullable|numeric',
             'food' => 'nullable|numeric',
             'biscuit' => 'nullable|numeric',
-            'cooldrinks' => 'nullable|numeric',
+            'cool_drinks' => 'nullable|numeric',
             'service' => 'nullable|numeric',
             'work' => 'nullable|numeric',
             'milk' => 'nullable|numeric',
+            'amazon' => 'nullable|numeric',
+            'out_side_lab' => 'nullable|numeric',
+            'medicine_company' => 'nullable|numeric',
+            'laundry' => 'nullable|numeric',
+            'car' => 'nullable|numeric',
+            'flower' => 'nullable|numeric',
+            'manju' => 'nullable|numeric',
+            'courier' => 'nullable|numeric',
+            'desil' => 'nullable|numeric',
+            'bio_waste' => 'nullable|numeric',
+            'autitor' => 'nullable|numeric',
         ]);
+        
 
         if ($request->filled('expenses_id')) {
             $expense = Expenses::findOrFail($request->expenses_id); // Find the record
@@ -123,6 +135,7 @@ class ExpenseController extends Controller
 
     public function generatePdf(Request $request)
     {
+
         $expenses = Expenses::where('date', $request->reportDate)->first();
         if (!$expenses) {
             return redirect()->back()->with('error', 'No expenses found for the selected date.');
@@ -131,10 +144,16 @@ class ExpenseController extends Controller
             'expense' => $expenses->toArray(),
             'date' => $request->reportDate
         ]);
-        Mail::to('dummydevil1000@gmail.com')->send(new ExpenseReportMail($pdf, $request->reportDate, $expenses));
-    
-        return back()->with('success', 'Expense report sent to mail successfully!');
+        if ($request->pdf === 'pdf') {
+            return $pdf->download('Expense_Report_' . $request->reportDate . '.pdf');
+        } elseif ($request->report === 'report') {
+
+            Mail::to('dummydevil1000@gmail.com')->send(new ExpenseReportMail($pdf, $request->reportDate, $expenses));
+
+            return back()->with('success', 'Expense report sent to mail successfully!');
+        }
     }
+}
     
 
     // public function generatePdf(Request $request)
@@ -152,5 +171,3 @@ class ExpenseController extends Controller
 
     //     return $pdf->download('Expense_Report_' . $request->reportDate . '.pdf');
     // }
-
-}

@@ -31,14 +31,7 @@
                     <ul class="collapse list-unstyled {{ Route::currentRouteName() === 'dashboard.user.view' ? 'show' : '' }}"
                         id="userManagementSubmenu">
                        
-                            <li class="nav-item">
-                                <a class="nav-link {{ Route::currentRouteName() === 'dashboard.user.view' ? 'fw-bold text-white' : '' }}" href="{{ route('dashboard.user.view') }}">Home</a>
-                            </li>
-                            
-                            <li class="nav-item">
-                                <a class="nav-link {{ Route::currentRouteName() === 'dashboard.user.view' ? 'fw-bold text-white' : '' }}" href="{{ route('dashboard.user.view') }}">About Us</a>
-                            </li>
-                            
+                
                            
                         
                     </ul>
