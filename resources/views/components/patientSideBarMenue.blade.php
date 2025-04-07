@@ -6,7 +6,7 @@
         <div id="loginUserInfo">
             <h6 id="name"> 
             </h6>
-            <p id="role"> Welcome</p>
+            <p id="role"> Welcome KMF Hospital</p>
         </div>
     </div>
     <nav class="menu">
