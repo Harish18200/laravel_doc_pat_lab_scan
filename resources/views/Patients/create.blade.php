@@ -11,7 +11,7 @@
             @csrf
             <div class="mb-3">
                 <label class="form-label">Patient</label>
-                <input type="text" name="patientName" value="{{ session('user_name') }}" class="form-control" placeholder="Enter Patient Name" readonly>
+                <input type="text" name="patientName" value="{{ session('user_name') }}" class="form-control" placeholder="Enter Patient Name" >
                 <input type="text" hidden name="patientId" value="{{ session('user_id') }}">
 
             </div>
