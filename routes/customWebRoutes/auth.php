@@ -74,6 +74,8 @@ Route::post('/pharmaDelete', [PharmaController::class, 'pharmaDelete'])
 
 Route::get('/scanInvoiceView', [ScanInvoiceController::class, 'scanInvoiceView'])
     ->name('scanInvoiceView');
+    Route::get('/taxInvoicePdf', [ScanInvoiceController::class, 'taxInvoicePdf'])
+    ->name('taxInvoicePdf');
 Route::get('/scanInvoiceCreate', [ScanInvoiceController::class, 'scanInvoiceCreate'])
     ->name('scanInvoiceCreate');
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ScanInvoice;
 
 use App\Http\Controllers\Controller;
 use App\Models\ScanInvoice;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class ScanInvoiceController extends Controller
@@ -12,6 +13,11 @@ class ScanInvoiceController extends Controller
     {
         $invoices = ScanInvoice::all();
         return view('Scaninvoices.index', compact('invoices'));
+    }
+    public function taxInvoicePdf()
+    {
+        $pdf = Pdf::loadView('ScanInvoices.scan_invoice');
+        return $pdf->stream('tax-invoice.pdf');
     }
 
     public function scanInvoiceCreate()
@@ -34,7 +40,7 @@ class ScanInvoiceController extends Controller
 
         try {
             $invoice = ScanInvoice::updateOrCreate(
-                ['id' => $request->invoice_id], // Check if invoice exists by ID
+                ['id' => $request->invoice_id],
                 [
                     'invoice_number' => $request->invoice_number,
                     'invoice_date' => $request->invoice_date,

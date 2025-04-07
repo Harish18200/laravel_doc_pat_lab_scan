@@ -15,7 +15,7 @@
 </div>
 
 <div class="mt-3">
-    <a href="{{ asset('images/scaninvoicepdf_03_2025.pdf') }}" target="_blank" class="btn btn-primary" id="getInvoiceBtn" disabled>Get Invoice</a>
+    <a href="{{ route('taxInvoicePdf') }}" target="_blank" class="btn btn-primary" id="getInvoiceBtn" disabled>Get Invoice</a>
 </div>
 
 <script>
