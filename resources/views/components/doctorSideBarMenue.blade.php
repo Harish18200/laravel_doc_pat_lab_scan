@@ -25,9 +25,9 @@
             <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() === 'dashboard.import.nsapScheme.show' ? 'fw-bold text-white' : '' }}" href="{{route('viewAppointment')}}">View Appointment</a>
             </li>
-            <!-- <li class="nav-item">
+      `      <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() === 'dashboard.import.nsapScheme.show' ? 'fw-bold text-white' : '' }}" href="{{route('diseasesView')}}">Diseases</a>
-            </li> -->
+            </li>`
             <!-- <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() === 'dashboard.import.nsapScheme.show' ? 'fw-bold text-white' : '' }}" href="{{route('promptSearch')}}">Prompt</a>
             </li> -->
