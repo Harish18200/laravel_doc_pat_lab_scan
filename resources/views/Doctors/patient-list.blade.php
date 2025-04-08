@@ -28,16 +28,16 @@
         @forelse($patients as $patient)
         <tr>
             <td>{{ $patient->id }}</td>
-            <td class="patient-name">{{ $patient->patient_name }}</td>
-            <td>{{ $patient->email }}</td>
-            <td>{{ $patient->mobile }}</td>
-            <td>{{ \Carbon\Carbon::parse($patient->dob)->diffInYears(\Carbon\Carbon::create(2025, 1, 1)) }} </td>
-            <td>{{ $patient->gender }}</td>
+            <td class="patient-name">{{ $patient->patientName }}</td>
+            <td>{{ $patient->patients->email }}</td>
+            <td>{{ $patient->patients->mobile }}</td>
+            <td>{{ \Carbon\Carbon::parse($patient->patients->dob)->diffInYears(\Carbon\Carbon::create(2025, 1, 1)) }} </td>
+            <td>{{ $patient->patients->gender }}</td>
             <td>
-            <a href="{{ route('searchPatientDetails', $patient->id) }}" class="btn btn-warning btn-sm">View</a>
-            <a href="{{ route('schedulePatient', $patient->id) }}" class="btn btn-secondary  btn-sm">Schedule</a>
-                <a href="{{ route('patients.edit', $patient->id) }}" class="btn btn-primary btn-sm">Edit</a>
-                <form action="{{ route('patients.destroy', $patient->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure?');">
+            <a href="{{ route('searchPatientDetails', $patient->patients->id) }}" class="btn btn-warning btn-sm">View</a>
+            <a href="{{ route('schedulePatient', $patient->patients->id) }}" class="btn btn-secondary  btn-sm">Schedule</a>
+                <a href="{{ route('patients.edit', $patient->patients->id) }}" class="btn btn-primary btn-sm">Edit</a>
+                <form action="{{ route('patients.destroy', $patient->patients->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure?');">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>

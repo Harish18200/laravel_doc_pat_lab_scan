@@ -14,7 +14,7 @@ class DoctorController extends Controller
 {
     public function PatientList()
     {
-        $patients = Patient::get();
+        $patients = Appointment::with('patients')->get(); 
         return view('Doctors.patient-list', compact('patients'));
     }
 
