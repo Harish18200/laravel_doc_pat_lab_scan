@@ -193,12 +193,13 @@ class ExpenseController extends Controller
             }
         
             $filename = 'Expense_Report_' . $request->reportDate . '.xlsx';
-           
             $path = storage_path('app/public/' . $filename);
             $writer = new Xlsx($spreadsheet);
             $writer->save($path);
-        
-            return redirect()->route('expensesMasterIndex')->with('success', 'Excel report generated!')->with('download_link', asset('storage/' . $filename));
+            
+            return redirect()->route('ReportView')
+                ->with('success', 'Excel report generated!')
+                ->with('download_link', asset('storage/' . $filename));
         }
         
     }
