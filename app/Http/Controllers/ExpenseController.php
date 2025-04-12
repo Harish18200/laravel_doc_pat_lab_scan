@@ -8,6 +8,8 @@ use App\Models\ExpensesMaster;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Mail;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 
 class ExpenseController extends Controller
@@ -141,7 +143,7 @@ class ExpenseController extends Controller
 
     public function generatePdf(Request $request)
     {
-     
+
         $expenses = Expenses::where('date', $request->reportDate)->first();
         if (!$expenses) {
             return redirect()->back()->with('error', 'No expenses found for the selected date.');
@@ -155,14 +157,50 @@ class ExpenseController extends Controller
             return $pdf->download('Expense_Report_' . $request->reportDate . '.pdf');
         } elseif ($request->report === 'report') {
             $email = $request->email ?? null;
-           
+
             Mail::to($email)->send(new ExpenseReportMail($pdf, $request->reportDate, $expenses));
 
             return back()->with('success', 'Expense report sent to mail successfully!');
+        } elseif ($request->excel === 'excel') {
+        
+            $spreadsheet = new Spreadsheet();
+            $sheet = $spreadsheet->getActiveSheet();
+        
+            $expensesArray = $expenses->toArray();
+        
+            function columnLetter($index) {
+                $alphabet = range('A', 'Z');
+                $letter = '';
+                while ($index >= 0) {
+                    $letter = $alphabet[$index % 26] . $letter;
+                    $index = intval($index / 26) - 1;
+                }
+                return $letter;
+            }
+        
+            $i = 0;
+            foreach (array_keys($expensesArray) as $key) {
+                $column = columnLetter($i);
+                $sheet->setCellValue($column . '1', $key);
+                $i++;
+            }
+        
+            $i = 0;
+            foreach (array_values($expensesArray) as $value) {
+                $column = columnLetter($i);
+                $sheet->setCellValue($column . '2', $value);
+                $i++;
+            }
+        
+            $filename = 'Expense_Report_' . $request->reportDate . '.xlsx';
+           
+            $path = storage_path('app/public/' . $filename);
+            $writer = new Xlsx($spreadsheet);
+            $writer->save($path);
+        
+            return redirect()->route('expensesMasterIndex')->with('success', 'Excel report generated!')->with('download_link', asset('storage/' . $filename));
         }
-    //   elseif ($request->excel === 'excel') {
-    //         $data = $expenses->toArray();
-    //     }
+        
     }
 }
     
