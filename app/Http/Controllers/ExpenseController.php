@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Mail;
 
+
 class ExpenseController extends Controller
 {
     public function expensesView()
@@ -27,7 +28,7 @@ class ExpenseController extends Controller
     public function medicinePurchase()
     {
 
-      
+
         return view('expenses.medicinePurchase');
     }
 
@@ -140,7 +141,7 @@ class ExpenseController extends Controller
 
     public function generatePdf(Request $request)
     {
-
+     
         $expenses = Expenses::where('date', $request->reportDate)->first();
         if (!$expenses) {
             return redirect()->back()->with('error', 'No expenses found for the selected date.');
@@ -150,13 +151,18 @@ class ExpenseController extends Controller
             'date' => $request->reportDate
         ]);
         if ($request->pdf === 'pdf') {
+
             return $pdf->download('Expense_Report_' . $request->reportDate . '.pdf');
         } elseif ($request->report === 'report') {
-
-            Mail::to('dummydevil1000@gmail.com')->send(new ExpenseReportMail($pdf, $request->reportDate, $expenses));
+            $email = $request->email ?? null;
+           
+            Mail::to($email)->send(new ExpenseReportMail($pdf, $request->reportDate, $expenses));
 
             return back()->with('success', 'Expense report sent to mail successfully!');
         }
+    //   elseif ($request->excel === 'excel') {
+    //         $data = $expenses->toArray();
+    //     }
     }
 }
     
