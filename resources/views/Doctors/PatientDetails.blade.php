@@ -185,15 +185,20 @@
                     @csrf
                     <td>
                         <input hidden type="text" name="patient_id" value="{{ $patients->id }}" class="form-control">
+
                         <strong>Symptoms</strong>
-                        <input type="text" name="symptoms" id="symptoms" class="form-control" placeholder="e.g. Fever, Cough, Headache"> @error('symptoms')
+
+                        <textarea name="symptoms" id="symptoms" class="form-control" placeholder="e.g. Fever, Cough, Headache" rows="3">{{ old('symptoms') }}</textarea>
+
+                        @error('symptoms')
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </td>
+
                     <td>
                         <strong>Disease:</strong>
-                        <textarea readonly name="disease" id="disease" class="form-control" placeholder="Detected Diseases" rows="3"></textarea>
-                        </td>
+                        <input readonly name="disease" id="disease" class="form-control" placeholder="Detected Diseases" rows="3">
+                    </td>
                     @error('disease')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -215,26 +220,26 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $('#symptoms').on('keyup', function() {
-    let symptom = $(this).val();
+        let symptom = $(this).val();
 
-    if (symptom.length > 2) {
-        $.ajax({
-            url: "{{ route('get.disease') }}",
-            type: "GET",
-            data: {
-                symptom: symptom
-            },
-            success: function(response) {
-                $('#disease').val(response.disease);
-            },
-            error: function() {
-                $('#disease').val('Error fetching disease');
-            }
-        });
-    } else {
-        $('#disease').val('');
-    }
-});
+        if (symptom.length > 2) {
+            $.ajax({
+                url: "{{ route('get.disease') }}",
+                type: "GET",
+                data: {
+                    symptom: symptom
+                },
+                success: function(response) {
+                    $('#disease').val(response.disease.disease);
+                },
+                error: function() {
+                    $('#disease').val('Error fetching disease');
+                }
+            });
+        } else {
+            $('#disease').val('');
+        }
+    });
 
 
 

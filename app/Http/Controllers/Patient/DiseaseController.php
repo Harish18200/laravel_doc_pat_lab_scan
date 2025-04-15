@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Disease;
 use App\Models\Appointment;
 use App\Models\PatientDisease;
+use App\Models\SymptomDisease;
 use Illuminate\Http\Request;
 
 class DiseaseController extends Controller
@@ -29,7 +30,7 @@ class DiseaseController extends Controller
             ->where('appointments.doctor_id', $sessionId)
             ->get();
         $outPatients = Appointment::select(
-            'patients.patient_name',   
+            'patients.patient_name',
             'patients.gender',
             'patients.mobile',
             'patients.id',
@@ -37,7 +38,7 @@ class DiseaseController extends Controller
             ->leftJoin('patients', 'appointments.patient_id', '=', 'patients.id')
             ->where('appointments.appointment_status', 1)
             ->get();
-        $inPatients =PatientDisease::select(
+        $inPatients = PatientDisease::select(
             'patients.patient_name',
             'patients.gender',
             'patients.mobile',
@@ -75,32 +76,16 @@ class DiseaseController extends Controller
     }
 
     public function getDisease(Request $request)
-{
-    $symptomInput = $request->symptom;
+    {
+        $symptomInput = $request->symptom;
 
-    $symptomsArray = array_map('trim', explode(',', $symptomInput));
-
-    $diseases = Disease::where(function($query) use ($symptomsArray) {
-        foreach ($symptomsArray as $symptom) {
-            $query->orWhere('symptoms', 'LIKE', "%$symptom%");
+        $disease = SymptomDisease::where('symptom', $symptomInput)->first();
+        if ($disease) {
+            return response()->json(['disease' => $disease], 200);
+        } else {
+            return response()->json(['message' => 'No matching disease found'], 404);
         }
-    })->pluck('diseases')->toArray();
-
-    if (!empty($diseases)) {
-        $uniqueDiseases = collect($diseases)
-            ->flatMap(function ($item) {
-                return array_map('trim', explode(',', $item));
-            })
-            ->unique()
-            ->values()
-            ->implode(', ');
-
-        return response()->json(['disease' => $uniqueDiseases]);
-    } else {
-        return response()->json(['disease' => 'No matching disease found']);
     }
-}
-
 
     // public function getDisease(Request $request)
     // {
