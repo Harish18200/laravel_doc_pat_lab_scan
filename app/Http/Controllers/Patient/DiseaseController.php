@@ -8,6 +8,10 @@ use App\Models\Appointment;
 use App\Models\PatientDisease;
 use App\Models\SymptomDisease;
 use Illuminate\Http\Request;
+use App\Models\KmfDisease;
+use App\Models\KmfSymptom;
+use App\Models\KmfSymptomMapDisease;
+
 
 class DiseaseController extends Controller
 {
@@ -77,16 +81,46 @@ class DiseaseController extends Controller
 
     public function getDisease(Request $request)
     {
-        $symptomInput = $request->symptom;
-
-        $disease = SymptomDisease::where('symptom', $symptomInput)->first();
-        if ($disease) {
-            return response()->json(['disease' => $disease], 200);
-        } else {
-            return response()->json(['message' => 'No matching disease found'], 404);
+        $symptomInput = $request->input('symptom');
+    
+        // Convert string to array
+        $symptomArray = explode(',', $symptomInput);
+        $symptomArray = array_map('trim', $symptomArray);
+        $symptomArray = array_filter($symptomArray);
+    
+        if (count($symptomArray) === 0) {
+            return response()->json(['error' => 'No valid symptoms provided'], 400);
         }
+    
+        $firstSymptom = $symptomArray[0];
+        $lastSymptom = $symptomArray[count($symptomArray) - 1];
+    
+        $firstSymptomModel = KmfSymptom::where('name', $firstSymptom)->first();
+        $lastSymptomModel = KmfSymptom::where('name', $lastSymptom)->first();
+    
+        if (!$firstSymptomModel || !$lastSymptomModel) {
+            return response()->json(['error' => 'Symptoms not found'], 404);
+        }
+    
+        if ($firstSymptom !== $lastSymptom) {
+            $query = KmfSymptomMapDisease::with('diseaseName')
+                ->where('symptom_id', $firstSymptomModel->id)
+                ->where('symptom_map_id', $lastSymptomModel->id)
+                ->first();
+        } else {
+            $query = KmfSymptomMapDisease::with('diseaseName')
+                ->where('symptom_id', $firstSymptomModel->id)
+                ->first();
+        }
+    
+        if (!$query) {
+            return response()->json(['disease_name' => ['disease' => 'No matching disease found']]);
+        }
+    
+        return response()->json(['disease_name' => $query->diseaseName]);
     }
-
+    
+    
     // public function getDisease(Request $request)
     // {
     //     $symptom = $request->symptom;

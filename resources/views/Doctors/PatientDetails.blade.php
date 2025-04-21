@@ -219,27 +219,34 @@
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $('#symptoms').on('keyup', function() {
-        let symptom = $(this).val();
+   $('#symptoms').on('keyup', function() {
+    let symptomInput = $(this).val().trim();
 
-        if (symptom.length > 2) {
-            $.ajax({
-                url: "{{ route('get.disease') }}",
-                type: "GET",
-                data: {
-                    symptom: symptom
-                },
-                success: function(response) {
-                    $('#disease').val(response.disease.disease);
-                },
-                error: function() {
-                    $('#disease').val('Error fetching disease');
+    if (symptomInput.length > 0) {
+        $.ajax({
+            url: "{{ route('get.disease') }}",
+            type: "POST",
+            data: {
+                _token: "{{ csrf_token() }}",
+                symptom: symptomInput 
+            },
+            success: function(response) {
+                if (response && response.disease_name && response.disease_name.name) {
+                    $('#disease').val(response.disease_name.name);
+                } else {
+                    $('#disease').val('No matching disease found');
                 }
-            });
-        } else {
-            $('#disease').val('');
-        }
-    });
+            },
+            error: function() {
+                $('#disease').val('Error fetching disease');
+            }
+        });
+    } else {
+        $('#disease').val('');
+    }
+});
+
+
 
 
 

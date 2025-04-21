@@ -129,7 +129,7 @@ Route::post('expensesDelete', [ExpenseController::class, 'expensesDelete'])
 
 
 Route::get('/search-diseases', [DiseaseController::class, 'searchDiseases'])->name('search.diseases');
-Route::get('/get-disease', [DiseaseController::class, 'getDisease'])->name('get.disease');
+Route::post('/get-disease', [DiseaseController::class, 'getDisease'])->name('get.disease');
 
 
 
